@@ -37,4 +37,4 @@ const CourseListItem = ({ course }) => {
     )
 }
 
-export default CourseListItem
+export default CourseListItem;

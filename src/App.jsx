@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Sidebar from "./components/Sidebar";
 import Courses from "./pages/Courses";
+import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
+import AdminRoute from "./components/AdminRoute";
+import LoginRoute from "./components/LoginRoute";
 
 function App() {
 
@@ -15,13 +17,22 @@ function App() {
         <Route path="/" element={
           <main className="flex">
             <Sidebar />
-            <Home />
+            <LoginRoute>
+              <AdminRoute>
+                <Home />
+              </AdminRoute>
+            </LoginRoute>
           </main>
         } />
         <Route path="/courses" element={
           <main className="flex">
             <Sidebar />
-            <Courses />
+            {/* <LoginRoute>
+              <Courses />
+            </LoginRoute> */}
+            <AdminRoute>
+              <Courses />
+            </AdminRoute>
           </main>
         } />
       </Routes>
