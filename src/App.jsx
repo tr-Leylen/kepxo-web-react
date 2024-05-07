@@ -3,11 +3,13 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Sidebar from "./components/Sidebar";
 import Courses from "./pages/Courses";
+import { Toaster } from "react-hot-toast";
 
 function App() {
 
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={
