@@ -38,7 +38,9 @@ const Sidebar = () => {
     return (
         <aside className='h-screen border-r border-main-color w-[300px] min-w-[300px] text-main-color'>
             <div className='w-fit h-16 px-5 py-3'>
+                <Link to={'/'}>
                 <img src={logo} alt="logo" className='block w-full h-full object-cover' />
+                </Link>
             </div>
             <ul className='list-none flex flex-col'>
                 {

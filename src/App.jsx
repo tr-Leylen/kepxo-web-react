@@ -6,9 +6,16 @@ import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import AdminRoute from "./components/AdminRoute";
 import LoginRoute from "./components/LoginRoute";
+import TeacherRoute from "./components/TeacherRoute";
+import MyCourses from "./pages/MyCourses";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 
 function App() {
 
+  const { currentUser } = useSelector(state => state.user)
+  axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`
   return (
     <BrowserRouter>
       <Toaster />
@@ -18,9 +25,7 @@ function App() {
           <main className="flex">
             <Sidebar />
             <LoginRoute>
-              <AdminRoute>
-                <Home />
-              </AdminRoute>
+              <Home />
             </LoginRoute>
           </main>
         } />
@@ -31,6 +36,16 @@ function App() {
               <AdminRoute>
                 <Courses />
               </AdminRoute>
+            </LoginRoute>
+          </main>
+        } />
+        <Route path="/my-courses" element={
+          <main className="flex">
+            <Sidebar />
+            <LoginRoute>
+              <TeacherRoute>
+                <MyCourses />
+              </TeacherRoute>
             </LoginRoute>
           </main>
         } />

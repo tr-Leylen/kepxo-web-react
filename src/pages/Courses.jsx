@@ -1,6 +1,8 @@
 import React from 'react'
 import PageHeader from '../components/PageHeader'
 import CourseListItem from '../components/CourseListItem'
+import CurrentPage from '../components/CurrentPage'
+import { IoSearch } from "react-icons/io5";
 
 const data = [
     {
@@ -52,11 +54,16 @@ const data = [
 
 const Courses = () => {
     return (
-        <div className='max-h-screen w-full overflow-y-scroll'>
+        <CurrentPage>
             <PageHeader title='Eğitimler' />
-            <div className='p-10'>
-                <div className=''>
-                    <input type="text" />
+            <div className='p-10 mt-14'>
+                <div className='text-main-color w-fit border-main-color border flex items-center rounded-md overflow-hidden px-2 py-1'>
+                    <input
+                        type="text"
+                        placeholder='Eğitim ara'
+                        className='px-2 py-1 text-sm outline-none'
+                    />
+                    <IoSearch className='cursor-pointer text-lg'/>
                 </div>
                 <ul className='list-none flex flex-col gap-10 mt-14'>
                     {data.map(course => (
@@ -64,7 +71,7 @@ const Courses = () => {
                     ))}
                 </ul>
             </div>
-        </div>
+        </CurrentPage>
     )
 }
 

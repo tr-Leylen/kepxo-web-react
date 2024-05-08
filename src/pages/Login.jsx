@@ -37,14 +37,14 @@ const Login = () => {
                         Kullanıcı Adı
                     </label>
                     <input
-                        {...register("username", { required: true })}
+                        {...register("username", { required: 'Bu alan boş bırakılamaz' })}
                         type="text"
                         id='username'
                         className='outline-none border border-main-color rounded-md px-3 py-2'
                     />
                     {errors.username &&
                         <span className='text-xs text-red-600'>
-                            Bu alan boş bırakılamaz
+                            {errors.username?.message}
                         </span>
                     }
                 </div>
