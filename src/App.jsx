@@ -27,12 +27,11 @@ function App() {
         <Route path="/courses" element={
           <main className="flex">
             <Sidebar />
-            {/* <LoginRoute>
-              <Courses />
-            </LoginRoute> */}
-            <AdminRoute>
-              <Courses />
-            </AdminRoute>
+            <LoginRoute>
+              <AdminRoute>
+                <Courses />
+              </AdminRoute>
+            </LoginRoute>
           </main>
         } />
       </Routes>

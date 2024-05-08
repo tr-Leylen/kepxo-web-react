@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-const LoginRoute = () => {
+const LoginRoute = ({children}) => {
     const { currentUser } = useSelector(state => state.user)
 
     return (
-        currentUser.token ? <Outlet /> : <Navigate to={'login'} />
+        currentUser.token ? children : <Navigate to={'login'} />
     )
 };
 export default LoginRoute;

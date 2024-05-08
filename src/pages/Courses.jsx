@@ -54,7 +54,7 @@ const Courses = () => {
     return (
         <div className='max-h-screen w-full overflow-y-scroll'>
             <PageHeader title='Eğitimler' />
-            <div className='p-10 mt-14'>
+            <div className='p-10'>
                 <div className=''>
                     <input type="text" />
                 </div>
