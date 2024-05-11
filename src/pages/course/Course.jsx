@@ -48,9 +48,11 @@ const Course = () => {
                             ))
                         }
                     </p>
+                    <h2 className='text-main-color font-semibold text-3xl'>
+                        {category?.title}
+                    </h2>
                     <p className='text-main-color text-opacity-80'>
                         {course?.description}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eaque dolorum facere animi perferendis et veniam molestiae expedita tenetur accusantium?
                     </p>
                     <a href={course?.link} target='_self' className='text-blue-500'>{course?.link}</a>
                     <p className='font-semibold text-main-color text-xl'>{course?.score} puan</p>
