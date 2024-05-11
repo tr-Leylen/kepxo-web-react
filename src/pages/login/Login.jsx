@@ -1,10 +1,10 @@
 import React from 'react'
-import logo from '../assets/kepxo-logo.png'
+import logo from '../../assets/kepxo-logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { login } from '../controllers/login.controller'
+import { login } from '../../controllers/login.controller'
 import { useDispatch } from 'react-redux'
-import { signIn } from '../redux/userSlice'
+import { signIn } from '../../redux/userSlice'
 import toast from 'react-hot-toast'
 
 const Login = () => {

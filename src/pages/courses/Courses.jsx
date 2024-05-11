@@ -1,7 +1,7 @@
 import React from 'react'
-import PageHeader from '../components/PageHeader'
-import CourseListItem from '../components/CourseListItem'
-import CurrentPage from '../components/CurrentPage'
+import PageHeader from '../../components/PageHeader'
+import CourseListItem from '../../components/CourseListItem'
+import CurrentPage from '../../components/CurrentPage'
 import { IoSearch } from "react-icons/io5";
 
 const data = [

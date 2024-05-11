@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Courses from "./pages/Courses";
+import Login from "./pages/login/Login";
+import Home from "./pages/home/Home";
+import Courses from "./pages/courses/Courses";
 import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import AdminRoute from "./components/AdminRoute";
 import LoginRoute from "./components/LoginRoute";
 import TeacherRoute from "./components/TeacherRoute";
-import MyCourses from "./pages/MyCourses";
+import MyCourses from "./pages/mycourses/MyCourses";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Course from "./pages/course/Course";
 
 
 function App() {
@@ -46,6 +47,14 @@ function App() {
               <TeacherRoute>
                 <MyCourses />
               </TeacherRoute>
+            </LoginRoute>
+          </main>
+        } />
+        <Route path="/course/:id" element={
+          <main className="flex">
+            <Sidebar />
+            <LoginRoute>
+              <Course />
             </LoginRoute>
           </main>
         } />

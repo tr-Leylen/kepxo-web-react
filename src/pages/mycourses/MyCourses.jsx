@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import CurrentPage from '../components/CurrentPage'
-import PageHeader from '../components/PageHeader'
-import Modal from '../components/Modal'
-import CreateCourse from '../components/CreateCourse'
-import { getMyCourses } from '../controllers/course.controller'
+import CurrentPage from '../../components/CurrentPage'
+import PageHeader from '../../components/PageHeader'
+import Modal from '../../components/Modal'
+import CreateCourse from '../../components/CreateCourse'
+import { getMyCourses } from '../../controllers/course.controller'
 import { useSelector } from 'react-redux'
-import CourseListItem from '../components/CourseListItem'
+import CourseListItem from '../../components/CourseListItem'
 
 const MyCourses = () => {
   const [modal, setModal] = useState(false)
