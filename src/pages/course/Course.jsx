@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import CurrentPage from '../../components/CurrentPage';
 import PageHeader from '../../components/PageHeader';
 import { Link, useParams } from 'react-router-dom';
-import { getCourse } from '../../controllers/course.controller';
+import { deleteCourse, getCourse } from '../../controllers/course.controller';
 import { getCategory } from '../../controllers/category.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import UpdateCourse from './UpdateCourse';
+import DeleteAlert from '../../components/DeleteAlert';
 
 const Course = () => {
     const [course, setCourse] = useState({})
@@ -56,6 +57,9 @@ const Course = () => {
                     </p>
                     <a href={course?.link} target='_self' className='text-blue-500'>{course?.link}</a>
                     <p className='font-semibold text-main-color text-xl'>{course?.score} puan</p>
+                    <p className='text-sm font-semibold'>
+                        Durum: {course.enable ? <span className='text-green-600'>Aktiv</span> : <span className='text-red-600'>Kapalı</span>}
+                    </p>
                     {(currentUser.role === "admin" || currentUser._id === course?.ownerId) && <div className='flex gap-2'>
                         <button
                             onClick={() => setUpdateModal(!updateModal)}
@@ -67,12 +71,17 @@ const Course = () => {
                             onClick={() => setDeleteModal(!deleteModal)}
                             className='rounded w-24 h-10 flex justify-center items-center bg-red-500 text-white font-medium active:bg-red-600 uppercase text-sm'
                         >
-                            Sil
+                            {course?.enable ? 'Sil':'Aç'}
                         </button>
                     </div>}
                 </div>
             </div>
             {updateModal && <UpdateCourse closeModal={setUpdateModal} getNewData={getCourseData} />}
+            {deleteModal && <DeleteAlert
+                setModal={setDeleteModal}
+                deleteOperation={() => deleteCourse(id)}
+                getData={getCourseData}
+            />}
         </CurrentPage >
     )
 }

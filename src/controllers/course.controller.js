@@ -47,7 +47,7 @@ export const uploadImage = async (data) => {
 export const deleteCourse = async (id) => {
     try {
         const res = await axios.delete(`${baseURL}course/delete/${id}`)
-        return res.data
+        return res.data;
     } catch (error) {
         console.log(error)
     }

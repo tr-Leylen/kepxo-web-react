@@ -13,12 +13,12 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = async (data) => {
         const user = await login(data)
-        if (user) {
+        if (user._id) {
             dispatch(signIn(user))
             toast.success("Welcome")
             navigate("/")
         } else {
-            toast.error("Wrong credentials")
+            toast.error(user.response?.data || user)
         }
     }
     return (
