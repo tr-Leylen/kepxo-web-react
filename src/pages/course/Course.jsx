@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import CurrentPage from '../../components/CurrentPage';
 import PageHeader from '../../components/PageHeader';
 import { Link, useParams } from 'react-router-dom';
-import { deleteCourse, getCourse } from '../../controllers/course.controller';
+import { acceptCourse, deleteCourse, getCourse } from '../../controllers/course.controller';
 import { getCategory } from '../../controllers/category.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import UpdateCourse from './UpdateCourse';
 import DeleteAlert from '../../components/DeleteAlert';
+import AcceptCourse from './AcceptCourse';
+import toast from 'react-hot-toast';
 
 const Course = () => {
     const [course, setCourse] = useState({})
     const [category, setCategory] = useState({})
     const [updateModal, setUpdateModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
+    const [acceptModal, setAcceptModal] = useState(false)
     const { id } = useParams()
     const { currentUser } = useSelector(state => state.user)
 
@@ -25,6 +28,21 @@ const Course = () => {
     const getCategoryData = async () => {
         const data = await getCategory(course?.categoryId)
         setCategory(data)
+    }
+
+    const handleClickAccept = async () => {
+        if (course?.accepted) {
+            const accepted = await acceptCourse({ data: { score: course?.score }, id })
+            if (accepted) {
+                getCourseData()
+                toast.success('Onay kaldırıldı')
+                setAcceptModal(false)
+            } else{
+                toast.error('Onay kaldırılamadı')
+            }
+        } else {
+            setAcceptModal(true)
+        }
     }
 
     useEffect(() => {
@@ -71,8 +89,15 @@ const Course = () => {
                             onClick={() => setDeleteModal(!deleteModal)}
                             className='rounded w-24 h-10 flex justify-center items-center bg-red-500 text-white font-medium active:bg-red-600 uppercase text-sm'
                         >
-                            {course?.enable ? 'Sil':'Aç'}
+                            {course?.enable ? 'Sil' : 'Aç'}
                         </button>
+                        {currentUser.role === "admin" &&
+                            <button
+                                onClick={handleClickAccept}
+                                className='rounded w-24 h-10 flex justify-center items-center text-white font-medium bg-lime-700 uppercase leading-4'
+                            >
+                                {course?.accepted ? 'Onayı kaldır' : 'Onayla'}
+                            </button>}
                     </div>}
                 </div>
             </div>
@@ -82,6 +107,12 @@ const Course = () => {
                 deleteOperation={() => deleteCourse(id)}
                 getData={getCourseData}
             />}
+            {(acceptModal && !course?.accepted) &&
+                <AcceptCourse
+                    setModal={setAcceptModal}
+                    getData={getCourseData}
+                />
+            }
         </CurrentPage >
     )
 }

@@ -5,6 +5,7 @@ import { FaUserGroup } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import logo from '../assets/kepxo-logo.png'
 import { useSelector } from 'react-redux';
+import { GoClockFill } from "react-icons/go";
 
 const sidebarLinks = [
     {
@@ -30,6 +31,12 @@ const sidebarLinks = [
         icon: <IoSchool />,
         path: '/my-courses',
         role: 'teacher'
+    },
+    {
+        title: 'Onay Bekleyen Kurslar',
+        icon: <GoClockFill />,
+        path: '/waiting-courses',
+        role: 'admin'
     }
 ]
 
@@ -39,7 +46,7 @@ const Sidebar = () => {
         <aside className='h-screen border-r border-main-color w-[300px] min-w-[300px] text-main-color'>
             <div className='w-fit h-16 px-5 py-3'>
                 <Link to={'/'}>
-                <img src={logo} alt="logo" className='block w-full h-full object-cover' />
+                    <img src={logo} alt="logo" className='block w-full h-full object-cover' />
                 </Link>
             </div>
             <ul className='list-none flex flex-col'>

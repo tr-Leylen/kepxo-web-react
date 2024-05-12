@@ -61,3 +61,30 @@ export const getCourse = async (id) => {
         console.log(error)
     }
 }
+
+export const getCourses = async () => {
+    try {
+        const res = await axios.get(`${baseURL}course/all`)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getWaitingCourses = async () => {
+    try {
+        const res = await axios.get(`${baseURL}course/no-accepted`)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const acceptCourse = async ({ data, id }) => {
+    try {
+        const res = await axios.put(`${baseURL}course/accept/${id}`, data)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
