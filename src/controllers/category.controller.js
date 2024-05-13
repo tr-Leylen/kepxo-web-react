@@ -19,3 +19,13 @@ export const getCategory = async (id) => {
         console.log(error)
     }
 }
+
+
+export const updateCategory = async ({ data, id }) => {
+    try {
+        const res = await axios.put(`${baseURL}category/${id}`, data)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}

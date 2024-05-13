@@ -12,6 +12,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Course from "./pages/course/Course";
 import WaitingCourses from "./pages/waiting-courses/WaitingCourses";
+import Category from "./pages/categories/Category";
 
 
 function App() {
@@ -65,6 +66,16 @@ function App() {
             <LoginRoute>
               <AdminRoute>
                 <WaitingCourses />
+              </AdminRoute>
+            </LoginRoute>
+          </main>
+        } />
+        <Route path="/category" element={
+          <main className="flex">
+            <Sidebar />
+            <LoginRoute>
+              <AdminRoute>
+                <Category />
               </AdminRoute>
             </LoginRoute>
           </main>

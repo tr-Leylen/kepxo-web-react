@@ -6,6 +6,7 @@ import { PiStudentFill } from "react-icons/pi";
 import logo from '../assets/kepxo-logo.png'
 import { useSelector } from 'react-redux';
 import { GoClockFill } from "react-icons/go";
+import { BiSolidCategory } from "react-icons/bi";
 
 const sidebarLinks = [
     {
@@ -37,6 +38,12 @@ const sidebarLinks = [
         icon: <GoClockFill />,
         path: '/waiting-courses',
         role: 'admin'
+    },
+    {
+        title: 'Kategoriler',
+        icon: <BiSolidCategory />,
+        path: '/category',
+        role: "admin"
     }
 ]
 
