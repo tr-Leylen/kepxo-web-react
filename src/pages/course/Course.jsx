@@ -5,6 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 import { acceptCourse, deleteCourse, getCourse } from '../../controllers/course.controller';
 import { getCategory } from '../../controllers/category.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
+import { LuClock } from "react-icons/lu";
+import { FaRegCheckCircle } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import UpdateCourse from './UpdateCourse';
 import DeleteAlert from '../../components/DeleteAlert';
@@ -37,7 +39,7 @@ const Course = () => {
                 getCourseData()
                 toast.success('Onay kaldırıldı')
                 setAcceptModal(false)
-            } else{
+            } else {
                 toast.error('Onay kaldırılamadı')
             }
         } else {
@@ -57,6 +59,14 @@ const Course = () => {
             <PageHeader title={course?.title} />
             <div className='p-5 mt-14'>
                 <img src={course?.avatar} alt="course img" className='max-w-[600px] block max-h-[300px] mb-5 object-cover' />
+                {course?.accepted ?
+                    <h2 className='flex gap-2 items-center font-semibold text-xl text-green-600 my-5'>
+                        <FaRegCheckCircle /> Onaylandı
+                    </h2>
+                    :
+                    <h2 className='my-5 text-xl font-semibold text-red-600 flex items-center gap-2'>
+                        <LuClock /> Onay bekliyor
+                    </h2>}
                 <div className='flex flex-col gap-5'>
                     <p className='text-yellow-500 flex'>
                         {
@@ -73,7 +83,7 @@ const Course = () => {
                     <p className='text-main-color text-opacity-80'>
                         {course?.description}
                     </p>
-                    <a href={course?.link} target='_self' className='text-blue-500'>{course?.link}</a>
+                    <a href={course?.link} target='_self' className='text-blue-500 w-fit'>{course?.link}</a>
                     <p className='font-semibold text-main-color text-xl'>{course?.score} puan</p>
                     <p className='text-sm font-semibold'>
                         Durum: {course.enable ? <span className='text-green-600'>Aktiv</span> : <span className='text-red-600'>Kapalı</span>}

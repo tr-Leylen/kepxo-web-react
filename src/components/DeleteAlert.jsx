@@ -6,12 +6,12 @@ import toast from 'react-hot-toast'
 const DeleteAlert = ({ deleteOperation, setModal, getData }) => {
     const deleteFunc = async () => {
         const res = await deleteOperation()
-        if (res) {
-            toast.success('Kurs silindi')
+        if (!res?.response) {
+            toast.success('Başarıyla tamamlandı')
             getData()
             setModal(false)
         } else {
-            toast.error('Kurs silinemedi')
+            toast.error(res?.response?.data || 'Bir hata oluşdu')
         }
     }
     return (

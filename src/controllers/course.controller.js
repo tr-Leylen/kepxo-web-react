@@ -49,7 +49,7 @@ export const deleteCourse = async (id) => {
         const res = await axios.delete(`${baseURL}course/delete/${id}`)
         return res.data;
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
