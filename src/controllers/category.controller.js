@@ -29,3 +29,21 @@ export const updateCategory = async ({ data, id }) => {
         return error
     }
 }
+
+export const createCategory = async (data) => {
+    try {
+        const res = await axios.post(`${baseURL}category`, data)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}
+
+export const deleteCategory = async (id) => {
+    try {
+        const res = await axios.delete(`${baseURL}category/${id}`)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}

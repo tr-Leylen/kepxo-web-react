@@ -18,7 +18,7 @@ const WaitingCourses = () => {
     return (
         <CurrentPage>
             <PageHeader title='Onay Bekleyen Kurslar' />
-            <ul className='p-5 mt-14'>
+            <ul className='p-5 mt-14 gap-3 flex flex-col'>
                 {data.map(course => (
                     <CourseListItem key={course?._id} course={course}/>
                 ))}

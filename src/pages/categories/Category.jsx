@@ -3,6 +3,7 @@ import CurrentPage from '../../components/CurrentPage'
 import PageHeader from '../../components/PageHeader'
 import { getCategories } from '../../controllers/category.controller'
 import UpdateCategory from './UpdateCategory'
+import CreateCategory from './CreateCategory'
 
 const Category = () => {
     const [data, setData] = useState([])
@@ -50,6 +51,10 @@ const Category = () => {
                 categoryId={selectedCategory}
                 getData={getData}
                 modalIsOpen={setUpdateModal}
+            />}
+            {createModal && <CreateCategory
+                getData={getData}
+                modalisOpen={setCreateModal}
             />}
         </CurrentPage>
     )
