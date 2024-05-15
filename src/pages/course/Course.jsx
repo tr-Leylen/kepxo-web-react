@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CurrentPage from '../../components/CurrentPage';
 import PageHeader from '../../components/PageHeader';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { acceptCourse, deleteCourse, getCourse } from '../../controllers/course.controller';
 import { getCategory } from '../../controllers/category.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
@@ -84,6 +84,7 @@ const Course = () => {
                         {course?.description}
                     </p>
                     <a href={course?.link} target='_self' className='text-blue-500 w-fit'>{course?.link}</a>
+                    <p className='text-lg text-main-color'>Adres: {course?.address}</p>
                     <p className='font-semibold text-main-color text-xl'>{course?.score} puan</p>
                     <p className='text-sm font-semibold'>
                         Durum: {course.enable ? <span className='text-green-600'>Aktiv</span> : <span className='text-red-600'>Kapalı</span>}

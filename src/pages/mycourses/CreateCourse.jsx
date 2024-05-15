@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { createCourse, uploadImage } from '../controllers/course.controller'
+import { createCourse, uploadImage } from '../../controllers/course.controller'
 import toast from 'react-hot-toast'
 import { IoMdClose } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { useSelector } from 'react-redux';
-import { getCategories } from '../controllers/category.controller';
+import { getCategories } from '../../controllers/category.controller';
+import { getTeachers } from '../../controllers/user.controller';
 
-const CreateCourse = ({ closeModal, getCourses }) => {
+const CreateCourse = ({ closeModal, createdBy = "teacher" }) => {
     const { currentUser } = useSelector(state => state.user)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [categories, setCategories] = useState([])
+    const [teachers, setTeachers] = useState([])
 
     const submit = async (data) => {
         const avatar = await uploadImage({
-            userId: currentUser._id,
+            userId: createdBy === 'admin' ? data.ownerId : currentUser._id,
             file: data.avatar[0],
             title: data.title
         })
@@ -22,7 +24,6 @@ const CreateCourse = ({ closeModal, getCourses }) => {
         const course = await createCourse(data)
         if (course) {
             toast.success('Kurs başarıyla yaratıldı')
-            getCourses()
             closeModal(false)
         } else {
             toast.error('Kurs yaratılamadı')
@@ -34,8 +35,14 @@ const CreateCourse = ({ closeModal, getCourses }) => {
         setCategories(data)
     }
 
+    const getTeachersData = async () => {
+        const data = await getTeachers()
+        setTeachers(data)
+    }
+
     useEffect(() => {
         categoriesData()
+        createdBy === 'admin' && getTeachersData()
     }, [])
 
     return (
@@ -64,6 +71,23 @@ const CreateCourse = ({ closeModal, getCourses }) => {
                     {errors.title?.message}
                 </span>}
             </div>
+            {createdBy === 'admin' && <div className='flex flex-col gap-2 px-10'>
+                <label htmlFor="teacher">Öğretmen</label>
+                <select
+                    {...register("ownerId", { required: 'Bu alan boş bırakılamaz' })}
+                    className='border rounded-sm outline-none p-2'
+                    id='teacher'
+                >
+                    <option></option>
+                    {teachers.map(teacher => (
+                        <option value={teacher?._id}>{teacher?.firstName + ' ' + teacher?.lastName}</option>
+                    ))}
+                </select>
+                {errors.ownerId && <span className='text-red-600 text-xs font-semibold flex items-center gap-2'>
+                    <MdError />
+                    {errors.ownerId?.message}
+                </span>}
+            </div>}
             <div className='flex flex-col gap-2 px-10'>
                 <label htmlFor="description">Açıklama</label>
                 <textarea
@@ -98,7 +122,7 @@ const CreateCourse = ({ closeModal, getCourses }) => {
                 >
                     <option></option>
                     {categories.map(category => (
-                        <option value={category._id}>{category.title}</option>
+                        <option value={category?._id}>{category?.title}</option>
                     ))}
                 </select>
                 {errors.categoryId && <span className='text-red-600 text-xs font-semibold flex items-center gap-2'>
