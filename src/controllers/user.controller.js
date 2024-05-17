@@ -18,3 +18,12 @@ export const getTeachers = async () => {
         return error
     }
 }
+
+export const getTeachersPaged = async (page) => {
+    try {
+        const res = await axios.get(`${baseURL}user/teachers-paged?page=${page}`)
+        return res;
+    } catch (error) {
+        return error
+    }
+}

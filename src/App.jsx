@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import Course from "./pages/course/Course";
 import WaitingCourses from "./pages/waiting-courses/WaitingCourses";
 import Category from "./pages/categories/Category";
+import Teachers from "./pages/teachers/Teachers";
 
 
 function App() {
@@ -35,21 +36,17 @@ function App() {
         <Route path="/courses" element={
           <main className="flex">
             <Sidebar />
-            <LoginRoute>
-              <AdminRoute>
-                <Courses />
-              </AdminRoute>
-            </LoginRoute>
+            <AdminRoute>
+              <Courses />
+            </AdminRoute>
           </main>
         } />
         <Route path="/my-courses" element={
           <main className="flex">
             <Sidebar />
-            <LoginRoute>
-              <TeacherRoute>
-                <MyCourses />
-              </TeacherRoute>
-            </LoginRoute>
+            <TeacherRoute>
+              <MyCourses />
+            </TeacherRoute>
           </main>
         } />
         <Route path="/course/:id" element={
@@ -63,21 +60,25 @@ function App() {
         <Route path="/waiting-courses" element={
           <main className="flex">
             <Sidebar />
-            <LoginRoute>
-              <AdminRoute>
-                <WaitingCourses />
-              </AdminRoute>
-            </LoginRoute>
+            <AdminRoute>
+              <WaitingCourses />
+            </AdminRoute>
           </main>
         } />
         <Route path="/category" element={
           <main className="flex">
             <Sidebar />
-            <LoginRoute>
-              <AdminRoute>
-                <Category />
-              </AdminRoute>
-            </LoginRoute>
+            <AdminRoute>
+              <Category />
+            </AdminRoute>
+          </main>
+        } />
+        <Route path="/teachers" element={
+          <main className="flex">
+            <Sidebar />
+            <AdminRoute>
+              <Teachers />
+            </AdminRoute>
           </main>
         } />
       </Routes>
