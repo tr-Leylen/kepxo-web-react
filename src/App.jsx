@@ -14,6 +14,7 @@ import Course from "./pages/course/Course";
 import WaitingCourses from "./pages/waiting-courses/WaitingCourses";
 import Category from "./pages/categories/Category";
 import Teachers from "./pages/teachers/Teachers";
+import Users from "./pages/users/Users";
 
 
 function App() {
@@ -78,6 +79,14 @@ function App() {
             <Sidebar />
             <AdminRoute>
               <Teachers />
+            </AdminRoute>
+          </main>
+        } />
+        <Route path="/users" element={
+          <main className="flex">
+            <Sidebar />
+            <AdminRoute>
+              <Users />
             </AdminRoute>
           </main>
         } />

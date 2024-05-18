@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import CurrentPage from '../../components/CurrentPage'
 import PageHeader from '../../components/PageHeader'
-import { getTeachersPaged } from '../../controllers/user.controller.js'
-import { IoIosSearch } from "react-icons/io";
-import Modal from '../../components/Modal.jsx';
-import CreateUser from './CreateUser.jsx';
-import UserItem from './UserItem.jsx';
+import { IoIosSearch } from 'react-icons/io'
+import UserItem from '../teachers/UserItem'
+import Modal from '../../components/Modal'
+import CreateUser from '../teachers/CreateUser'
+import { getUsersPaged } from '../../controllers/user.controller'
 
-const Teachers = () => {
+const Users = () => {
     const [data, setData] = useState([])
     const [page, setPage] = useState(0)
     const [createModal, setCreateModal] = useState(false)
     const getData = async () => {
-        const teachers = await getTeachersPaged(page)
-        setData(teachers?.data)
+        const users = await getUsersPaged(page)
+        setData(users?.data)
     }
 
     const searchRef = useRef()
@@ -27,7 +27,7 @@ const Teachers = () => {
     }, [])
     return (
         <CurrentPage>
-            <PageHeader title='Öğretmenler' />
+            <PageHeader title='Kullanıcılar' />
             <div className='mt-14 p-5'>
                 <form
                     onSubmit={handleSubmit}
@@ -36,7 +36,7 @@ const Teachers = () => {
                     <input
                         type="text"
                         className='outline-none px-3 py-2 text-sm'
-                        placeholder='Öğretmen ara'
+                        placeholder='Kullanıcı ara'
                         ref={searchRef}
                     />
                     <button
@@ -50,7 +50,7 @@ const Teachers = () => {
                     onClick={() => setCreateModal(true)}
                     className='bg-green-700 text-white px-4 py-2 rounded my-10'
                 >
-                    Yeni Öğretmen
+                    Yeni Kullanıcı
                 </button>
                 <ul className='grid grid-cols-3 gap-3'>
                     {data.map(item => (
@@ -61,11 +61,11 @@ const Teachers = () => {
             </div>
             {createModal &&
                 <Modal>
-                    <CreateUser getData={getData} modalIsOpen={setCreateModal} userType='teacher' />
+                    <CreateUser getData={getData} modalIsOpen={setCreateModal} userType='user' />
                 </Modal>
             }
         </CurrentPage>
     )
 }
 
-export default Teachers;
+export default Users;;
