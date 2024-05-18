@@ -10,6 +10,15 @@ export const getUser = async (id) => {
     }
 }
 
+export const updateUser = async ({ userId, data }) => {
+    try {
+        const response = await axios.put(`${baseURL}user/${userId}`, data)
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
 export const getTeachers = async () => {
     try {
         const res = await axios.get(`${baseURL}user/teachers`)
@@ -22,6 +31,15 @@ export const getTeachers = async () => {
 export const getTeachersPaged = async (page) => {
     try {
         const res = await axios.get(`${baseURL}user/teachers-paged?page=${page}`)
+        return res;
+    } catch (error) {
+        return error
+    }
+}
+
+export const deleteUser = async (id) => {
+    try {
+        const res = await axios.delete(`${baseURL}user/${id}`)
         return res;
     } catch (error) {
         return error

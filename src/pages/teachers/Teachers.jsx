@@ -54,7 +54,7 @@ const Teachers = () => {
                 </button>
                 <ul className='grid grid-cols-3 gap-3'>
                     {data.map(item => (
-                        <TeacherItem id={item} />
+                        <TeacherItem id={item} key={item} />
                     ))}
 
                 </ul>
