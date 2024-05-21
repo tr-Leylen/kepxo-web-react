@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { IoSchool } from "react-icons/io5";
-import { FaUserGroup } from "react-icons/fa6";
+import { FaUserGroup, FaGift } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import logo from '../assets/kepxo-logo.png'
 import { useSelector } from 'react-redux';
@@ -50,6 +50,12 @@ const sidebarLinks = [
         title: 'Konferanslar',
         icon: <FcConferenceCall />,
         path: '/conferences',
+        role: 'admin'
+    },
+    {
+        title: 'Hediyeler',
+        icon: <FaGift />,
+        path: '/gifts',
         role: 'admin'
     }
 ]

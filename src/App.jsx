@@ -16,6 +16,7 @@ import Category from "./pages/categories/Category";
 import Teachers from "./pages/teachers/Teachers";
 import Users from "./pages/users/Users";
 import Conferences from "./pages/conferences/Conferences";
+import Gift from "./pages/gifts/Gift";
 
 
 function App() {
@@ -95,6 +96,12 @@ function App() {
           <main className="flex">
             <Sidebar />
             <AdminRoute> <Conferences /> </AdminRoute>
+          </main>
+        } />
+        <Route path="/gifts" element={
+          <main className="flex">
+            <Sidebar />
+            <AdminRoute> <Gift /> </AdminRoute>
           </main>
         } />
       </Routes>
