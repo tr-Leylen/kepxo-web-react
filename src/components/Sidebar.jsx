@@ -7,6 +7,7 @@ import logo from '../assets/kepxo-logo.png'
 import { useSelector } from 'react-redux';
 import { GoClockFill } from "react-icons/go";
 import { BiSolidCategory } from "react-icons/bi";
+import { FcConferenceCall } from "react-icons/fc";
 
 const sidebarLinks = [
     {
@@ -44,6 +45,12 @@ const sidebarLinks = [
         icon: <BiSolidCategory />,
         path: '/category',
         role: "admin"
+    },
+    {
+        title: 'Konferanslar',
+        icon: <FcConferenceCall />,
+        path: '/conferences',
+        role: 'admin'
     }
 ]
 
