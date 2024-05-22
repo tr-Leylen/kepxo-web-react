@@ -17,6 +17,7 @@ import Teachers from "./pages/teachers/Teachers";
 import Users from "./pages/users/Users";
 import Conferences from "./pages/conferences/Conferences";
 import Gift from "./pages/gifts/Gift";
+import GiftTypes from "./pages/gift-types/GiftTypes";
 
 
 function App() {
@@ -102,6 +103,12 @@ function App() {
           <main className="flex">
             <Sidebar />
             <AdminRoute> <Gift /> </AdminRoute>
+          </main>
+        } />
+        <Route path="/gifts/types" element={
+          <main className="flex">
+            <Sidebar />
+            <AdminRoute> <GiftTypes /> </AdminRoute>
           </main>
         } />
       </Routes>
