@@ -4,6 +4,8 @@ import PageHeader from '../../components/PageHeader'
 import { getAllGifts } from '../../controllers/gift.controller'
 import { Link } from 'react-router-dom'
 import { GrFormNextLink } from "react-icons/gr";
+import CreateGift from './CreateGift'
+import GiftItem from './GiftItem'
 
 const Gift = () => {
     const [data, setData] = useState([])
@@ -17,7 +19,6 @@ const Gift = () => {
     useEffect(() => {
         getGiftsData()
     }, [])
-    console.log(data)
     return (
         <CurrentPage>
             <PageHeader title='Hediyeler' />
@@ -38,9 +39,12 @@ const Gift = () => {
                 <ul
                     className='grid grid-cols-3 gap-5'
                 >
-
+                    {data.map(item =>
+                        <GiftItem gift={item} key={item._id} getData={getGiftsData}/>
+                    )}
                 </ul>
             </div>
+            {createModal && <CreateGift getData={getGiftsData} modalIsOpen={setCreateModal} />}
         </CurrentPage>
     )
 }
