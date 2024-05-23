@@ -6,14 +6,17 @@ import { IoIosSearch } from "react-icons/io";
 import Modal from '../../components/Modal.jsx';
 import CreateUser from './CreateUser.jsx';
 import UserItem from './UserItem.jsx';
+import Pagination from '../../components/Pagination.jsx';
 
 const Teachers = () => {
     const [data, setData] = useState([])
-    const [page, setPage] = useState(0)
+    const [activePage, setActivePage] = useState(0)
+    const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
     const getData = async () => {
-        const teachers = await getTeachersPaged(page)
-        setData(teachers?.data)
+        const teachers = await getTeachersPaged(activePage)
+        setData(teachers?.data.data)
+        setTotalPages(teachers?.data.totalPages)
     }
 
     const searchRef = useRef()
@@ -24,7 +27,7 @@ const Teachers = () => {
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [activePage])
     return (
         <CurrentPage>
             <PageHeader title='Öğretmenler' />
@@ -59,6 +62,11 @@ const Teachers = () => {
 
                 </ul>
             </div>
+            <Pagination
+                activePage={activePage}
+                pageCount={totalPages}
+                setActivePage={setActivePage}
+            />
             {createModal &&
                 <Modal>
                     <CreateUser getData={getData} modalIsOpen={setCreateModal} userType='teacher' />

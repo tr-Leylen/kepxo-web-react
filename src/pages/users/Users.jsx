@@ -6,14 +6,17 @@ import UserItem from '../teachers/UserItem'
 import Modal from '../../components/Modal'
 import CreateUser from '../teachers/CreateUser'
 import { getUsersPaged } from '../../controllers/user.controller'
+import Pagination from '../../components/Pagination'
 
 const Users = () => {
     const [data, setData] = useState([])
-    const [page, setPage] = useState(0)
+    const [activePage, setActivePage] = useState(0)
+    const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
     const getData = async () => {
-        const users = await getUsersPaged(page)
-        setData(users?.data)
+        const users = await getUsersPaged(activePage)
+        setData(users?.data.data)
+        setTotalPages(users.data.totalPages)
     }
 
     const searchRef = useRef()
@@ -24,7 +27,7 @@ const Users = () => {
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [activePage])
     return (
         <CurrentPage>
             <PageHeader title='Kullanıcılar' />
@@ -59,6 +62,11 @@ const Users = () => {
 
                 </ul>
             </div>
+            <Pagination
+                activePage={activePage}
+                setActivePage={setActivePage}
+                pageCount={totalPages}
+            />
             {createModal &&
                 <Modal>
                     <CreateUser getData={getData} modalIsOpen={setCreateModal} userType='user' />
