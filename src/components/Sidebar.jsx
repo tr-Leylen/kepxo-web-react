@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { IoSchool } from "react-icons/io5";
-import { FaUserGroup, FaGift } from "react-icons/fa6";
+import { FaUserGroup, FaGift, FaHotel } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import logo from '../assets/kepxo-logo.png'
 import { useSelector } from 'react-redux';
 import { GoClockFill } from "react-icons/go";
 import { BiSolidCategory } from "react-icons/bi";
-import { FcConferenceCall } from "react-icons/fc";
+import { MdGroups } from "react-icons/md";
 
 const sidebarLinks = [
     {
@@ -48,7 +48,7 @@ const sidebarLinks = [
     },
     {
         title: 'Konferanslar',
-        icon: <FcConferenceCall />,
+        icon: <MdGroups />,
         path: '/conferences',
         role: 'admin'
     },
@@ -56,6 +56,12 @@ const sidebarLinks = [
         title: 'Hediyeler',
         icon: <FaGift />,
         path: '/gifts',
+        role: 'admin'
+    },
+    {
+        title: 'Hoteller',
+        icon: <FaHotel />,
+        path: '/hotels',
         role: 'admin'
     }
 ]

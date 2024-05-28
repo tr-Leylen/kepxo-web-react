@@ -18,6 +18,7 @@ import Users from "./pages/users/Users";
 import Conferences from "./pages/conferences/Conferences";
 import Gift from "./pages/gifts/Gift";
 import GiftTypes from "./pages/gift-types/GiftTypes";
+import Hotels from "./pages/hotels/Hotels";
 
 
 function App() {
@@ -109,6 +110,12 @@ function App() {
           <main className="flex">
             <Sidebar />
             <AdminRoute> <GiftTypes /> </AdminRoute>
+          </main>
+        } />
+        <Route path="/hotels" element={
+          <main className="flex">
+            <Sidebar />
+            <AdminRoute> <Hotels /> </AdminRoute>
           </main>
         } />
       </Routes>
