@@ -78,7 +78,7 @@ const Sidebar = () => {
             <ul className='list-none flex flex-col'>
                 {
                     sidebarLinks.map((item, index) => (
-                        currentUser.role === item.role && <li key={index}>
+                        currentUser?.role === item.role && <li key={index}>
                             <Link to={item.path} className='flex items-center gap-2 px-5 py-3 transition-all duration-200 hover:bg-purple-100'>
                                 {item.icon}
                                 <span>{item.title}</span>

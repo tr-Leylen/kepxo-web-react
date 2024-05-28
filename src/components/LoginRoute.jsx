@@ -5,7 +5,7 @@ const LoginRoute = ({children}) => {
     const { currentUser } = useSelector(state => state.user)
 
     return (
-        currentUser.token ? children : <Navigate to={'/login'} />
+        currentUser?.token ? children : <Navigate to={'/login'} />
     )
 };
 export default LoginRoute;

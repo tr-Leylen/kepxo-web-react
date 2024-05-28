@@ -5,7 +5,7 @@ const AdminRoute = ({children}) => {
     const { currentUser } = useSelector(state => state.user)
 
     return (
-        currentUser.role === "admin" ? children : <Navigate to={'/login'} />
+        currentUser?.role === "admin" ? children : <Navigate to={'/login'} />
     )
 };
 export default AdminRoute;
