@@ -24,7 +24,7 @@ import Hotels from "./pages/hotels/Hotels";
 function App() {
 
   const { currentUser } = useSelector(state => state.user)
-  axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`
+  axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser?.token}`
   return (
     <BrowserRouter>
       <Toaster />
