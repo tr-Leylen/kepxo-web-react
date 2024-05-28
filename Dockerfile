@@ -6,8 +6,8 @@ RUN npm install --force --silent
 
 COPY ./ /app/
 
-ARG VITE_APP_BASE_API_URL
-ENV VITE_APP_BASE_API_URL $VITE_APP_BASE_API_URL
+ARG VITE_BASE_URL
+ENV VITE_BASE_URL $VITE_BASE_URL
 
 ARG NODE_OPTIONS=--max-old-space-size=4096
 RUN npm run build
