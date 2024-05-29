@@ -65,7 +65,7 @@ export const getCourse = async (id) => {
 export const getCourses = async () => {
     try {
         const res = await axios.get(`${baseURL}course/all`)
-        return res.data
+        return res
     } catch (error) {
         console.log(error)
     }
@@ -74,7 +74,7 @@ export const getCourses = async () => {
 export const getWaitingCourses = async () => {
     try {
         const res = await axios.get(`${baseURL}course/no-accepted`)
-        return res.data
+        return res
     } catch (error) {
         console.log(error)
     }

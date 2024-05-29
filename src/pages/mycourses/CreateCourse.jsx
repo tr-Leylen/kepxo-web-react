@@ -6,7 +6,8 @@ import { IoMdClose } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../controllers/category.controller';
-import { getTeachers } from '../../controllers/user.controller';
+import { getTeachers, getUser } from '../../controllers/user.controller';
+import TeacherItem from './TeacherItem';
 
 const CreateCourse = ({ closeModal, createdBy = "teacher" }) => {
     const { currentUser } = useSelector(state => state.user)
@@ -80,7 +81,7 @@ const CreateCourse = ({ closeModal, createdBy = "teacher" }) => {
                 >
                     <option></option>
                     {teachers.map(teacher => (
-                        <option value={teacher?._id}>{teacher?.firstName + ' ' + teacher?.lastName}</option>
+                        <TeacherItem teacher={teacher} key={teacher} />
                     ))}
                 </select>
                 {errors.ownerId && <span className='text-red-600 text-xs font-semibold flex items-center gap-2'>

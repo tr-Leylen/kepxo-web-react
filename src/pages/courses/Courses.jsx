@@ -14,7 +14,7 @@ const Courses = () => {
 
     const getCoursesData = async () => {
         const courses = await getCourses()
-        setData(courses)
+        if(courses.status===200) setData(courses.data)
     }
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const Courses = () => {
                 </button>
                 <ul className='list-none flex flex-col gap-10 mt-14'>
                     {data.map(course => (
-                        <CourseListItem course={course} key={course.id} />
+                        <CourseListItem course={course} key={course?.id} />
                     ))}
                 </ul>
             </div>

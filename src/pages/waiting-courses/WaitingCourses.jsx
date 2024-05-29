@@ -9,7 +9,7 @@ const WaitingCourses = () => {
 
     const getWaitingCourseData = async () => {
         const courses = await getWaitingCourses()
-        setData(courses)
+        courses.status === 200 && setData(courses.data)
     }
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const WaitingCourses = () => {
             <PageHeader title='Onay Bekleyen Kurslar' />
             <ul className='p-5 mt-14 gap-3 flex flex-col'>
                 {data.map(course => (
-                    <CourseListItem key={course?._id} course={course}/>
+                    <CourseListItem key={course?._id} course={course} />
                 ))}
             </ul>
         </CurrentPage>
