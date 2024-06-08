@@ -6,9 +6,10 @@ import InputError from '../../components/InputError';
 import InputDiv from '../../components/InputDiv';
 import { GoStar, GoStarFill } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { addHotelImage, removeHotelImage, updateHotel, uploadHotelImage } from '../../controllers/hotel.controller';
+import { addHotelImage, removeHotelImage, updateHotel } from '../../controllers/hotel.controller';
 import toast from 'react-hot-toast';
 import { IoIosAdd, IoIosCloseCircleOutline } from "react-icons/io";
+import { uploadImage } from '../../controllers/general.controller';
 
 const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
     const [images, setImages] = useState(hotel.images || [])
@@ -44,7 +45,7 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
         if (!file) return;
         const formData = new FormData()
         formData.append('file', file)
-        const photo = await uploadHotelImage(formData)
+        const photo = await uploadImage(formData)
         if (!photo) return;
         const data = await addHotelImage({ id: hotel._id, data: { image: photo.data?.url } })
         setImages(data.data)

@@ -6,8 +6,9 @@ import InputError from '../../components/InputError';
 import InputDiv from '../../components/InputDiv';
 import { GoStar, GoStarFill } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { createHotel, uploadHotelImage } from '../../controllers/hotel.controller';
+import { createHotel } from '../../controllers/hotel.controller';
 import toast from 'react-hot-toast';
+import { uploadImage } from '../../controllers/general.controller';
 
 const CreateHotel = ({ modalIsOpen, getData }) => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -24,7 +25,7 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
             for (let i = 0; i < image.length; i++) {
                 const formData = new FormData()
                 formData.append('file', image[i])
-                const imgURL = await uploadHotelImage(formData)
+                const imgURL = await uploadImage(formData)
                 data.images = [...data.images, imgURL.data?.url]
             }
         }

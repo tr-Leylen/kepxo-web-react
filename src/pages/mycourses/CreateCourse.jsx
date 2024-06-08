@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { createCourse, uploadImage } from '../../controllers/course.controller'
+import { createCourse } from '../../controllers/course.controller'
 import toast from 'react-hot-toast'
 import { IoMdClose } from "react-icons/io";
 import { MdError } from "react-icons/md";
@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { getCategories } from '../../controllers/category.controller';
 import { getTeachers, getUser } from '../../controllers/user.controller';
 import TeacherItem from './TeacherItem';
+import { uploadImage } from '../../controllers/general.controller';
 
 const CreateCourse = ({ closeModal, createdBy = "teacher" }) => {
     const { currentUser } = useSelector(state => state.user)
@@ -16,12 +17,12 @@ const CreateCourse = ({ closeModal, createdBy = "teacher" }) => {
     const [teachers, setTeachers] = useState([])
 
     const submit = async (data) => {
-        const avatar = await uploadImage({
-            userId: createdBy === 'admin' ? data.ownerId : currentUser._id,
-            file: data.avatar[0],
-            title: data.title
-        })
-        data.avatar = avatar
+        if (data.avatar[0]) {
+            const formData = new FormData()
+            formData.append('file', data.avatar[0])
+            const avatar = await uploadImage(formData)
+            data.avatar = avatar.data?.url;
+        }
         const course = await createCourse(data)
         if (course) {
             toast.success('Kurs başarıyla yaratıldı')

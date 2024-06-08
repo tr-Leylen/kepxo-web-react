@@ -6,8 +6,9 @@ import { MdError } from 'react-icons/md'
 import { GoStar, GoStarFill } from 'react-icons/go'
 import { GrPowerReset } from 'react-icons/gr'
 import { getAllGiftTypes } from '../../controllers/gift_type.controller'
-import { updateGift, uploadGiftImage } from '../../controllers/gift.controller'
+import { updateGift } from '../../controllers/gift.controller'
 import toast from 'react-hot-toast'
+import { uploadImage } from '../../controllers/general.controller'
 
 const UpdateGift = ({ gift, modalIsOpen, getData }) => {
     const [types, setTypes] = useState([])
@@ -35,8 +36,10 @@ const UpdateGift = ({ gift, modalIsOpen, getData }) => {
 
     const submitForm = async (data) => {
         if (image) {
-            const imgURL = await uploadGiftImage({ title: data.title, img: image })
-            data.image = imgURL
+            const formData = new FormData()
+            formData.append('file', image)
+            const imgURL = await uploadImage(formData)
+            data.image = imgURL.data?.url;
         }
         data.star = giftStar
         const res = await updateGift({ data, id: gift._id })

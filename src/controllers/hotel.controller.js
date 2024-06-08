@@ -1,6 +1,4 @@
 import axios from "axios";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "./firebase";
 
 const baseURL = import.meta.env.VITE_BASE_URL
 
@@ -52,15 +50,6 @@ export const getHotel = async (id) => {
 export const getHotelsPaged = async (page) => {
     try {
         const res = await axios.get(`${baseURL}hotel/all?page=${page}`)
-        return res;
-    } catch (error) {
-        return error;
-    }
-}
-
-export const uploadHotelImage = async (img) => {
-    try {
-        const res = await axios.post(`${baseURL}photo`, img)
         return res;
     } catch (error) {
         return error;

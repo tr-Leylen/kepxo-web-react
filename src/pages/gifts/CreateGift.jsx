@@ -6,8 +6,9 @@ import { getAllGiftTypes } from '../../controllers/gift_type.controller'
 import { GoStarFill, GoStar } from "react-icons/go";
 import { GrPowerReset } from "react-icons/gr";
 import { IoMdClose } from 'react-icons/io'
-import { createGift, uploadGiftImage } from '../../controllers/gift.controller'
+import { createGift } from '../../controllers/gift.controller'
 import toast from 'react-hot-toast'
+import { uploadImage } from '../../controllers/general.controller'
 
 const CreateGift = ({ modalIsOpen, getData }) => {
     const [image, setImage] = useState(null)
@@ -27,8 +28,10 @@ const CreateGift = ({ modalIsOpen, getData }) => {
 
     const submitForm = async (data) => {
         if (image) {
-            const imgURL = await uploadGiftImage({ title: data.title, img: image })
-            data.image = imgURL
+            const formData = new FormData()
+            formData.append('file', image)
+            const imgURL = await uploadImage(formData)
+            data.image = imgURL.data?.url;
         }
         data.star = giftStar
         const res = await createGift(data)

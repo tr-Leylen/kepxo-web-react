@@ -3,11 +3,12 @@ import Modal from '../../components/Modal'
 import { useForm } from 'react-hook-form'
 import { IoMdClose } from 'react-icons/io'
 import { useParams } from 'react-router-dom'
-import { getCourse, updateCourse, uploadImage } from '../../controllers/course.controller'
+import { getCourse, updateCourse } from '../../controllers/course.controller'
 import { MdError } from 'react-icons/md'
 import { getCategories } from '../../controllers/category.controller'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
+import { uploadImage } from '../../controllers/general.controller'
 
 const UpdateCourse = ({ closeModal, getNewData }) => {
     const { currentUser } = useSelector(state => state.user)
@@ -38,12 +39,10 @@ const UpdateCourse = ({ closeModal, getNewData }) => {
 
     const onsubmit = async (data) => {
         if (newImage) {
-            const avatar = await uploadImage({
-                userId: currentUser._id,
-                file: newImage,
-                title: data?.title
-            })
-            data.avatar = avatar
+            const formData = new FormData()
+            formData.append('file', newImage)
+            const avatar = await uploadImage(formData)
+            data.avatar = avatar.data?.url;
         }
         const res = await updateCourse({ id, data })
         if (res) {
