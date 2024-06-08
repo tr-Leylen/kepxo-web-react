@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from '../../components/Modal'
 import { IoClose } from "react-icons/io5";
 import { useForm } from 'react-hook-form';
@@ -6,10 +6,12 @@ import InputError from '../../components/InputError';
 import InputDiv from '../../components/InputDiv';
 import { GoStar, GoStarFill } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { updateHotel, uploadHotelImage } from '../../controllers/hotel.controller';
+import { addHotelImage, removeHotelImage, updateHotel, uploadHotelImage } from '../../controllers/hotel.controller';
 import toast from 'react-hot-toast';
+import { IoIosAdd, IoIosCloseCircleOutline } from "react-icons/io";
 
 const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
+    const [images, setImages] = useState(hotel.images || [])
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             title: hotel.title,
@@ -21,17 +23,11 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
         }
     })
     const [hotelStar, setHotelStar] = useState(hotel?.star)
-    const [imageURL, setImageURL] = useState(null)
-    const [image, setImage] = useState(null)
 
     const changeStar = value => setHotelStar(value)
 
     const submitForm = async (data) => {
-        data.star = hotelStar
-        if (image) {
-            const imgURL = await uploadHotelImage({ title: data.title, img: image })
-            data.avatar = imgURL
-        }
+        data.images = images
         data.star = hotelStar
         const res = await updateHotel({ data, id: hotel._id })
         if (res.status === 200) {
@@ -40,6 +36,26 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
             modalIsOpen(false)
         } else {
             toast.error(res.response?.data || 'Hata oldu')
+        }
+    }
+
+    const addImage = async (e) => {
+        const file = e.target.files[0]
+        if (!file) return;
+        const formData = new FormData()
+        formData.append('file', file)
+        const photo = await uploadHotelImage(formData)
+        if (!photo) return;
+        const data = await addHotelImage({ id: hotel._id, data: { image: photo.data?.url } })
+        setImages(data.data)
+    }
+
+    const removeImage = async (image) => {
+        const res = await removeHotelImage({ id: hotel._id, data: { image } })
+        if (res.status == 200) {
+            setImages(res.data)
+        } else {
+            toast.error('Hata oldu')
         }
     }
     return (
@@ -97,20 +113,33 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
                     </p>
                 </InputDiv>
                 <InputDiv>
-                    <label htmlFor="avatar">Kapak fotoğrafı</label>
-                    {imageURL ?
-                        <img src={imageURL} alt='image' /> :
-                        <img src={hotel?.avatar} alt='image' />
-                    }
+                    <label htmlFor="avatar">Fotolar</label>
+                    <div className='grid grid-cols-2 gap-2'>
+                        {images.map(item => (
+                            <div className='relative' key={item}>
+                                <button
+                                    type='button'
+                                    className='p-1 absolute bg-slate-100 top-1 right-1 rounded-full'
+                                    onClick={() => removeImage(item)}
+                                >
+                                    <IoIosCloseCircleOutline />
+                                </button>
+                                <img className='w-full h-[100px]' src={item} alt='hotel-image' />
+                            </div>
+                        ))}
+                        <label htmlFor='avatar'
+                            type='button'
+                            className='h-full flex items-center justify-center bg-slate-100 text-main-color text-4xl active:bg-slate-200 py-5'
+                        >
+                            <IoIosAdd />
+                        </label>
+                    </div>
                     <input
                         type="file"
-                        className='px-2 py-1 outline-none border border-main-color rounded'
+                        className='px-2 py-1 outline-none border border-main-color rounded hidden'
                         id='avatar'
                         accept='image/*'
-                        onChange={e => {
-                            setImageURL(URL.createObjectURL(e.target.files[0]))
-                            setImage(e.target.files[0])
-                        }}
+                        onChange={addImage}
                     />
                 </InputDiv>
                 <InputDiv>

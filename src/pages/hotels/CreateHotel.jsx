@@ -12,16 +12,21 @@ import toast from 'react-hot-toast';
 const CreateHotel = ({ modalIsOpen, getData }) => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [hotelStar, setHotelStar] = useState(0)
-    const [imageURL, setImageURL] = useState(null)
-    const [image, setImage] = useState(null)
+    const [imageURL, setImageURL] = useState([])
+    const [image, setImage] = useState([])
 
     const changeStar = value => setHotelStar(value)
 
     const submitForm = async (data) => {
         data.star = hotelStar
-        if (image) {
-            const imgURL = await uploadHotelImage({ title: data.title, img: image })
-            data.image = imgURL
+        data.images = []
+        if (image.length > 0) {
+            for (let i = 0; i < image.length; i++) {
+                const formData = new FormData()
+                formData.append('file', image[i])
+                const imgURL = await uploadHotelImage(formData)
+                data.images = [...data.images, imgURL.data?.url]
+            }
         }
         data.star = hotelStar
         const res = await createHotel(data)
@@ -88,16 +93,20 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
                     </p>
                 </InputDiv>
                 <InputDiv>
-                    <label htmlFor="avatar">Kapak fotoğrafı</label>
-                    {imageURL && <img src={imageURL} alt='image' />}
+                    <label htmlFor="avatar">Fotolar</label>
+                    {imageURL.length > 0 &&
+                        imageURL.map(url => (
+                            <img src={url} alt='image' />
+                        ))
+                    }
                     <input
                         type="file"
                         className='px-2 py-1 outline-none border border-main-color rounded'
                         id='avatar'
                         accept='image/*'
                         onChange={e => {
-                            setImageURL(URL.createObjectURL(e.target.files[0]))
-                            setImage(e.target.files[0])
+                            setImageURL([...imageURL, URL.createObjectURL(e.target.files[0])])
+                            setImage([...image, e.target.files[0]])
                         }}
                     />
                 </InputDiv>

@@ -58,13 +58,28 @@ export const getHotelsPaged = async (page) => {
     }
 }
 
-export const uploadHotelImage = async ({ title, img }) => {
+export const uploadHotelImage = async (img) => {
     try {
-        const storage = getStorage(app)
-        const imageRef = ref(storage, title)
-        await uploadBytes(imageRef, img).catch(err => console.log(err))
-        const url = await getDownloadURL(imageRef).catch(error => console.log(error))
-        return url;
+        const res = await axios.post(`${baseURL}photo`, img)
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const addHotelImage = async ({id, data})=>{
+    try {
+        const res = await axios.put(`${baseURL}hotel/add-image/${id}`,data)
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const removeHotelImage = async ({id, data})=>{
+    try {
+        const res = await axios.put(`${baseURL}hotel/remove-image/${id}`,data)
+        return res;
     } catch (error) {
         return error;
     }

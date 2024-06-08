@@ -14,8 +14,8 @@ const HotelItem = ({ hotel, getData }) => {
         <>
             <li className='rounded-sm overflow-hidden border-main-color border'>
                 <div className='h-[200px] w-full flex items-center justify-center text-2xl border-b border-main-color'>
-                    {hotel.avatar ?
-                        <img src={hotel.avatar} alt='hotel' className='object-fill w-full h-full' /> :
+                    {hotel.images ?
+                        <img src={hotel.images[0]} alt='hotel' className='object-fill w-full h-full' /> :
                         <FaRegImage />
                     }
                 </div>
@@ -30,7 +30,7 @@ const HotelItem = ({ hotel, getData }) => {
                                 <TbPhotoEdit />
                             </button>
                             <button
-                                onClick={()=>setDeleteModal(true)}
+                                onClick={() => setDeleteModal(true)}
                                 className='rounded p-2 text-main-color hover:bg-slate-100 duration-200'
                             >
                                 <MdDeleteOutline />
