@@ -118,6 +118,11 @@ function App() {
             <AdminRoute> <Hotels /> </AdminRoute>
           </main>
         } />
+        <Route path="/forgot-password" element={
+          <main className="flex">
+            visca barsa
+          </main>
+        } />
       </Routes>
     </BrowserRouter>
   )

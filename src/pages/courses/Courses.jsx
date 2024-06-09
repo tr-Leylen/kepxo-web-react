@@ -6,20 +6,25 @@ import { IoSearch } from "react-icons/io5";
 import { getCourses } from '../../controllers/course.controller';
 import CreateCourse from '../mycourses/CreateCourse';
 import Modal from '../../components/Modal';
+import Pagination from '../../components/Pagination';
 
 
 const Courses = () => {
     const [data, setData] = useState([])
+    const [totalPages, setTotalPages] = useState(1)
+    const [activePage, setActivePage] = useState(0)
     const [createModal, setCreateModal] = useState(false)
 
     const getCoursesData = async () => {
-        const courses = await getCourses()
-        if(courses.status===200) setData(courses.data)
+        const courses = await getCourses({ page: activePage, limit: 10 })
+        if (courses?.status === 200) {
+            setData(courses.data.data)
+            setTotalPages(courses.data.totalPages)
+        }
     }
-
     useEffect(() => {
         getCoursesData()
-    }, [])
+    }, [activePage])
     return (
         <CurrentPage>
             <PageHeader title='Eğitimler' />
@@ -40,10 +45,15 @@ const Courses = () => {
                 </button>
                 <ul className='list-none flex flex-col gap-10 mt-14'>
                     {data.map(course => (
-                        <CourseListItem course={course} key={course?.id} />
+                        <CourseListItem course={course} key={course?._id} />
                     ))}
                 </ul>
             </div>
+            {data.length > 0 && <Pagination
+                activePage={activePage}
+                pageCount={totalPages}
+                setActivePage={setActivePage}
+            />}
             {createModal &&
                 <Modal>
                     <CreateCourse closeModal={setCreateModal} createdBy='admin' />

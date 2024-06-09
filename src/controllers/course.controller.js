@@ -48,18 +48,18 @@ export const getCourse = async (id) => {
     }
 }
 
-export const getCourses = async () => {
+export const getCourses = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}course/all`)
+        const res = await axios.get(`${baseURL}course/all?page=${page}&limit=${limit}`)
         return res
     } catch (error) {
         console.log(error)
     }
 }
 
-export const getWaitingCourses = async () => {
+export const getWaitingCourses = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}course/no-accepted`)
+        const res = await axios.get(`${baseURL}course/no-accepted?page=${page}&limit=${limit}`)
         return res
     } catch (error) {
         console.log(error)

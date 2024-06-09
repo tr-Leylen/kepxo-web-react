@@ -6,14 +6,18 @@ import { Link } from 'react-router-dom'
 import { GrFormNextLink } from "react-icons/gr";
 import CreateGift from './CreateGift'
 import GiftItem from './GiftItem'
+import Pagination from '../../components/Pagination'
 
 const Gift = () => {
     const [data, setData] = useState([])
     const [createModal, setCreateModal] = useState(false)
+    const [totalPages, setTotalPages] = useState(1)
+    const [activePage, setActivePage] = useState(0)
 
     const getGiftsData = async () => {
-        const res = await getAllGifts()
-        setData(res.data)
+        const res = await getAllGifts({ page: activePage, limit: 10 })
+        setData(res.data?.data)
+        setTotalPages(res.data?.totalPages)
     }
 
     useEffect(() => {
@@ -40,10 +44,17 @@ const Gift = () => {
                     className='grid grid-cols-3 gap-5'
                 >
                     {data.map(item =>
-                        <GiftItem gift={item} key={item._id} getData={getGiftsData}/>
+                        <GiftItem gift={item} key={item._id} getData={getGiftsData} />
                     )}
                 </ul>
             </div>
+            {data.length > 0 &&
+                <Pagination
+                    activePage={activePage}
+                    setActivePage={setActivePage}
+                    pageCount={totalPages}
+                />
+            }
             {createModal && <CreateGift getData={getGiftsData} modalIsOpen={setCreateModal} />}
         </CurrentPage>
     )

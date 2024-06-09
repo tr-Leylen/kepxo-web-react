@@ -3,18 +3,24 @@ import CurrentPage from '../../components/CurrentPage'
 import PageHeader from '../../components/PageHeader'
 import { getWaitingCourses } from '../../controllers/course.controller'
 import CourseListItem from '../../components/CourseListItem'
+import Pagination from '../../components/Pagination'
 
 const WaitingCourses = () => {
     const [data, setData] = useState([])
+    const [activePage, setActivePage] = useState(0)
+    const [totalPages, setTotalPages] = useState(1)
 
     const getWaitingCourseData = async () => {
-        const courses = await getWaitingCourses()
-        courses.status === 200 && setData(courses.data)
+        const courses = await getWaitingCourses({ page: activePage, limit: 10 })
+        if (courses.status === 200) {
+            setData(courses.data.data)
+            setTotalPages(courses.data.totalPages)
+        }
     }
 
     useEffect(() => {
         getWaitingCourseData()
-    }, [])
+    }, [activePage])
     return (
         <CurrentPage>
             <PageHeader title='Onay Bekleyen Kurslar' />
@@ -23,6 +29,11 @@ const WaitingCourses = () => {
                     <CourseListItem key={course?._id} course={course} />
                 ))}
             </ul>
+            {data.length > 0 && <Pagination
+                activePage={activePage}
+                pageCount={totalPages}
+                setActivePage={setActivePage}
+            />}
         </CurrentPage>
     )
 }

@@ -20,9 +20,9 @@ export const updateGift = async ({ id, data }) => {
     }
 }
 
-export const getAllGifts = async () => {
+export const getAllGifts = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}gift/all`)
+        const res = await axios.get(`${baseURL}gift/all?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error
@@ -38,7 +38,7 @@ export const getOneGift = async (id) => {
     }
 }
 
-export const deleteGift = async(id)=>{
+export const deleteGift = async (id) => {
     try {
         const res = await axios.delete(`${baseURL}gift/${id}`);
         return res;
