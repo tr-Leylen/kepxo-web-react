@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import HotelItem from './HotelItem'
 import { getHotelsPaged } from '../../controllers/hotel.controller'
 import CreateHotel from './CreateHotel'
+import Pagination from '../../components/Pagination'
 
 const Hotels = () => {
     const [data, setData] = useState([])
@@ -12,8 +13,9 @@ const Hotels = () => {
     const [createModal, setCreateModal] = useState(false)
 
     const getData = async () => {
-        const res = await getHotelsPaged(activePage)
-        setData(res.data)
+        const res = await getHotelsPaged({ page: activePage, limit: 10 })
+        setData(res.data?.data)
+        setTotalPages(res.data?.totalPages)
     }
 
     useEffect(() => {
@@ -37,6 +39,13 @@ const Hotels = () => {
                         ))}
                     </ul>
                 </div>
+                {data.length > 0 &&
+                    <Pagination
+                        activePage={activePage}
+                        setActivePage={setActivePage}
+                        pageCount={totalPages}
+                    />
+                }
             </CurrentPage>
             {createModal && <CreateHotel modalIsOpen={setCreateModal} getData={getData} />}
         </>

@@ -22,7 +22,7 @@ const Gift = () => {
 
     useEffect(() => {
         getGiftsData()
-    }, [])
+    }, [activePage])
     return (
         <CurrentPage>
             <PageHeader title='Hediyeler' />

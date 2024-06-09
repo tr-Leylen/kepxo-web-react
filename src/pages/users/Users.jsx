@@ -14,9 +14,9 @@ const Users = () => {
     const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
     const getData = async () => {
-        const users = await getUsersPaged(activePage)
-        setData(users?.data.data)
-        setTotalPages(users.data.totalPages)
+        const users = await getUsersPaged({ page: activePage, limit: 20 })
+        setData(users.data?.data)
+        setTotalPages(users.data?.totalPages)
     }
 
     const searchRef = useRef()

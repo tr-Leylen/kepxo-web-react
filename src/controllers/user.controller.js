@@ -28,18 +28,18 @@ export const getTeachers = async () => {
     }
 }
 
-export const getTeachersPaged = async (page) => {
+export const getTeachersPaged = async ({page,limit}) => {
     try {
-        const res = await axios.get(`${baseURL}user/teachers-paged?page=${page}`)
+        const res = await axios.get(`${baseURL}user/teachers-paged?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error
     }
 }
 
-export const getUsersPaged = async (page) => {
+export const getUsersPaged = async ({page,limit}) => {
     try {
-        const res = await axios.get(`${baseURL}user/users?page=${page}`)
+        const res = await axios.get(`${baseURL}user/users?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error

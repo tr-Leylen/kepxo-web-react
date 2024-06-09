@@ -47,27 +47,27 @@ export const getHotel = async (id) => {
     }
 }
 
-export const getHotelsPaged = async (page) => {
+export const getHotelsPaged = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}hotel/all?page=${page}`)
+        const res = await axios.get(`${baseURL}hotel/all?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error;
     }
 }
 
-export const addHotelImage = async ({id, data})=>{
+export const addHotelImage = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}hotel/add-image/${id}`,data)
+        const res = await axios.put(`${baseURL}hotel/add-image/${id}`, data)
         return res;
     } catch (error) {
         return error;
     }
 }
 
-export const removeHotelImage = async ({id, data})=>{
+export const removeHotelImage = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}hotel/remove-image/${id}`,data)
+        const res = await axios.put(`${baseURL}hotel/remove-image/${id}`, data)
         return res;
     } catch (error) {
         return error;

@@ -14,9 +14,9 @@ const Teachers = () => {
     const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
     const getData = async () => {
-        const teachers = await getTeachersPaged(activePage)
-        setData(teachers?.data.data)
-        setTotalPages(teachers?.data.totalPages)
+        const teachers = await getTeachersPaged({ page: activePage, limit: 20 })
+        setData(teachers.data?.data)
+        setTotalPages(teachers.data?.totalPages)
     }
 
     const searchRef = useRef()

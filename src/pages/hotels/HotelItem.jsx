@@ -14,7 +14,7 @@ const HotelItem = ({ hotel, getData }) => {
         <>
             <li className='rounded-sm overflow-hidden border-main-color border'>
                 <div className='h-[200px] w-full flex items-center justify-center text-2xl border-b border-main-color'>
-                    {hotel.images ?
+                    {hotel.images.length > 0 ?
                         <img src={hotel.images[0]} alt='hotel' className='object-fill w-full h-full' /> :
                         <FaRegImage />
                     }
