@@ -4,10 +4,12 @@ import { IoSchool } from "react-icons/io5";
 import { FaUserGroup, FaGift, FaHotel } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import logo from '../assets/kepxo-logo.png'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GoClockFill } from "react-icons/go";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdGroups } from "react-icons/md";
+import { RiLogoutCircleRLine, RiAccountCircleLine } from "react-icons/ri";
+import { signOut } from '../redux/userSlice';
 
 const sidebarLinks = [
     {
@@ -68,14 +70,15 @@ const sidebarLinks = [
 
 const Sidebar = () => {
     const { currentUser } = useSelector(state => state.user)
+    const dispatch = useDispatch()
     return (
         <aside className='h-screen border-r border-main-color w-[300px] min-w-[300px] text-main-color'>
-            <div className='w-fit h-16 px-5 py-3'>
+            <div className='w-fit h-14 px-5 py-3'>
                 <Link to={'/'}>
                     <img src={logo} alt="logo" className='block w-full h-full object-cover' />
                 </Link>
             </div>
-            <ul className='list-none flex flex-col'>
+            <ul className='list-none flex flex-col overflow-auto h-[calc(100vh-156px)] border-t'>
                 {
                     sidebarLinks.map((item, index) => (
                         currentUser?.role === item.role && <li key={index}>
@@ -86,6 +89,23 @@ const Sidebar = () => {
                         </li>
                     ))
                 }
+            </ul>
+            <ul className='h-[100px] w-full border-t' >
+                <li className='h-1/2 bg-main-color text-white transition-all hover:bg-opacity-95 duration-200'>
+                    <Link to={'/profile'} className='flex items-center gap-2 px-5 py-3'>
+                        <RiAccountCircleLine />
+                        <span>Profile</span>
+                    </Link>
+                </li>
+                <li className='h-1/2'>
+                    <button
+                        onClick={() => dispatch(signOut())}
+                        className='w-full h-full bg-red-600 text-start flex items-center gap-2 px-5 text-white transition-all hover:bg-red-700'
+                    >
+                        <RiLogoutCircleRLine />
+                        Log out
+                    </button>
+                </li>
             </ul>
         </aside >
     )

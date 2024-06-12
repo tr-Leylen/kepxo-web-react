@@ -19,6 +19,7 @@ import Conferences from "./pages/conferences/Conferences";
 import Gift from "./pages/gifts/Gift";
 import GiftTypes from "./pages/gift-types/GiftTypes";
 import Hotels from "./pages/hotels/Hotels";
+import Profile from "./pages/profile/Profile";
 
 
 function App() {
@@ -121,6 +122,14 @@ function App() {
         <Route path="/forgot-password" element={
           <main className="flex">
             visca barsa
+          </main>
+        } />
+        <Route path="/profile" element={
+          <main className="flex">
+            <Sidebar />
+            <LoginRoute>
+              <Profile />
+            </LoginRoute>
           </main>
         } />
       </Routes>
