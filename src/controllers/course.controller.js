@@ -74,3 +74,12 @@ export const acceptCourse = async ({ data, id }) => {
         console.log(error)
     }
 }
+
+export const searchCourse = async ({ page, limit, title }) => {
+    try {
+        const res = await axios.get(`${baseURL}course/search-title?page=${page}&limit=${limit}&title=${title}`)
+        return res;
+    } catch (error) {
+        return error
+    }
+}
