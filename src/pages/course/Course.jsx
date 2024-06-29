@@ -24,7 +24,11 @@ const Course = () => {
 
     const getCourseData = async () => {
         const course = await getCourse(id)
-        setCourse(course)
+        if (course.status === 200) {
+            setCourse(course.data)
+        }else{
+            toast.error('Hata oldu')
+        }
     }
 
     const getCategoryData = async () => {

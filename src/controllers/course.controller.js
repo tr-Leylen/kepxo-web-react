@@ -42,9 +42,9 @@ export const deleteCourse = async (id) => {
 export const getCourse = async (id) => {
     try {
         const res = await axios.get(`${baseURL}course/view/${id}`)
-        return res.data
+        return res
     } catch (error) {
-        console.log(error)
+        return error;
     }
 }
 
