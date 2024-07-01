@@ -73,12 +73,20 @@ const Sidebar = () => {
     const dispatch = useDispatch()
     return (
         <aside className='h-screen border-r border-main-color w-[300px] min-w-[300px] text-main-color'>
-            <div className='w-fit h-14 px-5 py-3'>
-                <Link to={'/'}>
-                    <img src={logo} alt="logo" className='block w-full h-full object-cover' />
+            <div className='w-full h-14 px-5 flex items-center gap-4 justify-between'>
+                <Link to={'/'} className='w-1/3 block'>
+                    <img src={logo} alt="logo" className='block object-cover' />
                 </Link>
+                <div className='flex items-center gap-2'>
+                    <Link to={'/profile'} className='rounded-lg p-1 bg-indigo-100 flex text-2xl'>
+                        <RiAccountCircleLine />
+                    </Link>
+                    <button onClick={() => dispatch(signOut())} className='rounded-lg p-1 bg-red-500 flex text-2xl text-white'>
+                        <RiLogoutCircleRLine />
+                    </button>
+                </div>
             </div>
-            <ul className='list-none flex flex-col overflow-auto h-[calc(100vh-156px)] border-t'>
+            <ul className='list-none flex flex-col overflow-auto h-[calc(100vh-56px)] border-t pb-10'>
                 {
                     sidebarLinks.map((item, index) => (
                         currentUser?.role === item.role && <li key={index}>
@@ -90,7 +98,7 @@ const Sidebar = () => {
                     ))
                 }
             </ul>
-            <ul className='h-[100px] w-full border-t' >
+            {/* <ul className='h-[100px] w-full border-t' >
                 <li className='h-1/2 bg-main-color text-white transition-all hover:bg-opacity-95 duration-200'>
                     <Link to={'/profile'} className='flex items-center gap-2 px-5 py-3'>
                         <RiAccountCircleLine />
@@ -106,7 +114,7 @@ const Sidebar = () => {
                         Log out
                     </button>
                 </li>
-            </ul>
+            </ul> */}
         </aside >
     )
 }

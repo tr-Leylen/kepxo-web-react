@@ -14,7 +14,7 @@ const MyCourses = () => {
 
   const getCourses = async () => {
     const courses = await getMyCourses(currentUser._id)
-    setCourseList(courses)
+    setCourseList(courses.data)
   }
 
   useEffect(() => {

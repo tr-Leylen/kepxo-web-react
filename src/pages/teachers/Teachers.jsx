@@ -70,8 +70,8 @@ const Teachers = () => {
                     Yeni Öğretmen
                 </button>
                 <ul className='grid grid-cols-3 gap-3'>
-                    {data.map(item => (
-                        <UserItem id={item} key={item} />
+                    {data.map(user => (
+                        <UserItem user={user} key={user._id} getUserData={getData} />
                     ))}
 
                 </ul>

@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { deleteUser, getUser } from '../../controllers/user.controller'
+import React, { useState } from 'react'
+import { deleteUser } from '../../controllers/user.controller'
 import Modal from '../../components/Modal'
 import UpdateUser from './UpdateUser'
 import { FaUser } from "react-icons/fa";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import DeleteAlert from '../../components/DeleteAlert';
 
-const UserItem = ({ id }) => {
-    const [user, setUser] = useState()
+const UserItem = ({ user, getUserData }) => {
     const [updateModal, setUpdateModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
-    const getUserData = async () => {
-        const data = await getUser(id)
-        setUser(data)
-    }
 
     const clickDelete = async (e) => {
         e.stopPropagation()
         setDeleteModal(true)
     }
-    useEffect(() => {
-        getUserData()
-    }, [id])
     return (
         <>
             <li
@@ -53,11 +45,11 @@ const UserItem = ({ id }) => {
             </li>
             {updateModal &&
                 <Modal>
-                    <UpdateUser userId={id} modalIsOpen={setUpdateModal} getData={getUserData} />
+                    <UpdateUser userId={user._id} modalIsOpen={setUpdateModal} getData={getUserData} />
                 </Modal>
             }
             {deleteModal && <DeleteAlert
-                deleteOperation={() => deleteUser(user?._id)}
+                deleteOperation={() => deleteUser(user._id)}
                 getData={getUserData}
                 setModal={setDeleteModal}
             />}

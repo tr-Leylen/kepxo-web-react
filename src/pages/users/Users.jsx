@@ -70,7 +70,7 @@ const Users = () => {
                 </button>
                 <ul className='grid grid-cols-3 gap-3'>
                     {data.map(item => (
-                        <UserItem id={item} key={item} />
+                        <UserItem user={item} key={item} getUserData={getData} />
                     ))}
                 </ul>
             </div>

@@ -20,6 +20,8 @@ import Gift from "./pages/gifts/Gift";
 import GiftTypes from "./pages/gift-types/GiftTypes";
 import Hotels from "./pages/hotels/Hotels";
 import Profile from "./pages/profile/Profile";
+import ResetPassword from "./pages/reset-password/ResetPassword";
+import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 
 
 function App() {
@@ -119,10 +121,11 @@ function App() {
             <AdminRoute> <Hotels /> </AdminRoute>
           </main>
         } />
+        <Route path="/reset-password/:token" element={
+          <ResetPassword />
+        } />
         <Route path="/forgot-password" element={
-          <main className="flex">
-            visca barsa
-          </main>
+          <ForgotPassword />
         } />
         <Route path="/profile" element={
           <main className="flex">

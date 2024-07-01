@@ -5,7 +5,7 @@ const TeacherRoute = ({ children }) => {
     const { currentUser } = useSelector(state => state.user)
 
     return (
-        currentUser.role === "teacher" ? children : <Navigate to={'/login'} />
+        currentUser?.role === "teacher" ? children : <Navigate to={'/login'} />
     )
 };
 export default TeacherRoute;
