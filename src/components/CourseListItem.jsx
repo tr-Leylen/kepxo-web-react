@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { MdStar, MdStarBorder, MdModeEdit, MdDelete } from "react-icons/md";
-import { getUser } from '../controllers/user.controller';
+import { MdStar, MdStarBorder } from "react-icons/md";
 
 const CourseListItem = ({ course }) => {
-    const [userName, setUserName] = useState("")
-    const getUserName = async () => {
-        const user = await getUser(course.ownerId)
-        setUserName(user?.username)
-    }
-    useEffect(() => {
-        getUserName()
-    }, [])
     return (
         <li>
             <Link to={`/course/${course?._id}`} className='flex rounded-md border border-main-color overflow-hidden'>
@@ -38,7 +29,7 @@ const CourseListItem = ({ course }) => {
                         {course?.description}
                     </p>
                     <p className='text-lg'>
-                        {userName}
+                        {course?.ownerName}
                     </p>
                 </div>
             </Link>
