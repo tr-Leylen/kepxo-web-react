@@ -102,12 +102,13 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
                     }
                     <input
                         type="file"
+                        multiple
                         className='px-2 py-1 outline-none border border-main-color rounded'
                         id='avatar'
                         accept='image/*'
                         onChange={e => {
-                            setImageURL([...imageURL, URL.createObjectURL(e.target.files[0])])
-                            setImage([...image, e.target.files[0]])
+                            setImageURL([...imageURL, URL.createObjectURL(e.target.files[e.target.files.length - 1])])
+                            setImage([...image, ...e.target.files])
                         }}
                     />
                 </InputDiv>
