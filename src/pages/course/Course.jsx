@@ -3,7 +3,6 @@ import CurrentPage from '../../components/CurrentPage';
 import PageHeader from '../../components/PageHeader';
 import { useParams } from 'react-router-dom';
 import { acceptCourse, deleteCourse, getCourse } from '../../controllers/course.controller';
-import { getCategory } from '../../controllers/category.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { LuClock } from "react-icons/lu";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -31,11 +30,6 @@ const Course = () => {
         }
     }
 
-    const getCategoryData = async () => {
-        const data = await getCategory(course?.categoryId)
-        setCategory(data)
-    }
-
     const handleClickAccept = async () => {
         if (course?.accepted) {
             const accepted = await acceptCourse({ data: { score: course?.score }, id })
@@ -54,10 +48,6 @@ const Course = () => {
     useEffect(() => {
         getCourseData()
     }, [id])
-
-    useEffect(() => {
-        course?._id && getCategoryData()
-    }, [course])
     return (
         <CurrentPage>
             <PageHeader title={course?.title} />
@@ -82,7 +72,7 @@ const Course = () => {
                         }
                     </p>
                     <h2 className='text-main-color font-semibold text-3xl'>
-                        {category?.title}
+                        {course?.categoryName}
                     </h2>
                     <p className='text-main-color text-opacity-80'>
                         {course?.description}
