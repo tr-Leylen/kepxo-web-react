@@ -19,7 +19,8 @@ const UpdateCourse = ({ closeModal, getNewData }) => {
     const { id } = useParams()
 
     const getCourseData = async () => {
-        const course = await getCourse(id)
+        const courseData = await getCourse(id)
+        let course = courseData.data
         if (course) {
             setValue("title", course?.title)
             setValue("description", course?.description)
@@ -115,6 +116,9 @@ const UpdateCourse = ({ closeModal, getNewData }) => {
                         <MdError />
                         {errors.avatar?.message}
                     </span>}
+                    <div className='w-full h-60'>
+                        {<img src={newImage ? URL.createObjectURL(newImage) : courseData.avatar} className='h-full w-full object-contain' />}
+                    </div>
                 </div>
                 <div className='flex flex-col gap-2 px-10'>
                     <label htmlFor="category">Kategori</label>

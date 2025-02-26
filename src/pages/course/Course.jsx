@@ -14,7 +14,6 @@ import toast from 'react-hot-toast';
 
 const Course = () => {
     const [course, setCourse] = useState({})
-    const [category, setCategory] = useState({})
     const [updateModal, setUpdateModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [acceptModal, setAcceptModal] = useState(false)

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Modal from '../../components/Modal'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import { acceptCourse, getCourse, getCourses } from '../../controllers/course.controller'
+import { acceptCourse, getCourse } from '../../controllers/course.controller'
 import toast from 'react-hot-toast'
 
 const AcceptCourse = ({ setModal, getData }) => {
@@ -21,7 +21,7 @@ const AcceptCourse = ({ setModal, getData }) => {
 
     const getCourseScore = async () => {
         const course = await getCourse(id)
-        setValue("score", course?.score)
+        setValue("score", course?.data?.score)
     }
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const AcceptCourse = ({ setModal, getData }) => {
                         type="number"
                         {...register("score", { min: 0, required: "Boş bırakılamaz", valueAsNumber: true })}
                         defaultValue={0}
-                        className='outline-none whitespace-normal'
+                        className='outline-2 outline-main-color whitespace-normal border border-main-color p-2'
                     />
                     {errors.score && <span>Minimum 0 ola bilir</span>}
                     <div className='flex gap-4'>
