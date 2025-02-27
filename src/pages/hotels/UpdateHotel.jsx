@@ -62,7 +62,7 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
     return (
         <Modal>
             <form
-                className='bg-white w-1/3 p-5 flex flex-col gap-5 relative h-[500px] overflow-auto'
+                className='bg-white w-1/2 p-5 flex flex-col gap-5 relative h-[70vh] overflow-auto'
                 onSubmit={handleSubmit(submitForm)}
             >
                 <h2 className='font-semibold text-main-color uppercase text-xl'>
@@ -117,7 +117,7 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
                     <label htmlFor="avatar">Fotolar</label>
                     <div className='grid grid-cols-2 gap-2'>
                         {images.map(item => (
-                            <div className='relative' key={item}>
+                            <div className='border border-main-color relative max-h-[200px]' key={item}>
                                 <button
                                     type='button'
                                     className='p-1 absolute bg-slate-100 top-1 right-1 rounded-full'
@@ -125,7 +125,7 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
                                 >
                                     <IoIosCloseCircleOutline />
                                 </button>
-                                <img className='w-full h-[100px]' src={item} alt='hotel-image' />
+                                <img className='object-cover w-full h-full' src={item} alt='hotel-image' />
                             </div>
                         ))}
                         <label htmlFor='avatar'

@@ -9,6 +9,8 @@ import { GrPowerReset } from 'react-icons/gr';
 import { createHotel } from '../../controllers/hotel.controller';
 import toast from 'react-hot-toast';
 import { uploadImage } from '../../controllers/general.controller';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { MdOutlineDriveFolderUpload } from 'react-icons/md';
 
 const CreateHotel = ({ modalIsOpen, getData }) => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -39,10 +41,31 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
             toast.error(res.response?.data || 'Hata oldu')
         }
     }
+
+    const handleImages = (images = []) => {
+        try {
+            const filesArray = Array.from(images)
+            const objectURLs = filesArray?.map(item => URL.createObjectURL(item))
+            setImageURL(prev => ([...prev, ...objectURLs]))
+            setImage(prev => ([...prev, ...filesArray]))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const removeImage = (index) => {
+        try {
+            setImageURL(prev => prev.filter((_, i) => i !== index))
+            setImage(prev => prev.filter((_, i) => i !== index))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <Modal>
             <form
-                className='bg-white w-1/3 p-5 flex flex-col gap-5 relative h-[500px] overflow-auto'
+                className='bg-white w-1/2 p-5 flex flex-col gap-5 relative h-[70vh] overflow-auto'
                 onSubmit={handleSubmit(submitForm)}
             >
                 <h2 className='font-semibold text-main-color uppercase text-xl'>
@@ -94,28 +117,42 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
                     </p>
                 </InputDiv>
                 <InputDiv>
-                    <label htmlFor="avatar">Fotolar</label>
-                    {imageURL.length > 0 &&
-                        imageURL.map(url => (
-                            <img src={url} alt='image' />
-                        ))
-                    }
+                    <label htmlFor="avatar" className='px-2 py-1 outline-none border border-main-color rounded flex items-center gap-2'>
+                        <MdOutlineDriveFolderUpload />
+                        <p className='flex items-center gap-2'>
+                            <span>Fotoğrafları seç</span>
+                            <span className='text-gray-400'>: {image.length}</span>
+                        </p>
+                    </label>
                     <input
                         type="file"
                         multiple
-                        className='px-2 py-1 outline-none border border-main-color rounded'
+                        className='px-2 py-1 outline-none border border-main-color rounded hidden'
                         id='avatar'
                         accept='image/*'
-                        onChange={e => {
-                            setImageURL([...imageURL, URL.createObjectURL(e.target.files[e.target.files.length - 1])])
-                            setImage([...image, ...e.target.files])
-                        }}
+                        onChange={e => handleImages(e.target.files)}
                     />
+                    <div className='grid grid-cols-2 gap-2'>
+                        {imageURL.length > 0 &&
+                            imageURL.map((url, index) => (
+                                <div key={index} className='mb-2 border border-main-color relative max-h-[200px]'>
+                                    <button
+                                        type='button'
+                                        className='p-1 absolute bg-slate-100 top-1 right-1 rounded-full'
+                                        onClick={() => removeImage(index)}
+                                    >
+                                        <IoIosCloseCircleOutline />
+                                    </button>
+                                    <img src={url} alt='image' className='object-cover w-full h-full' />
+                                </div>
+                            ))
+                        }
+                    </div>
                 </InputDiv>
                 <InputDiv>
                     <label htmlFor="desc">Açıklama</label>
-                    <input
-                        className='px-2 py-1 outline-none border border-main-color rounded'
+                    <textarea
+                        className='px-2 py-1 outline-none border border-main-color rounded resize-none h-[150px]'
                         id='desc'
                         {...register("description")}
                     />
