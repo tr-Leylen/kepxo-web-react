@@ -1,10 +1,8 @@
-import axios from "axios"
-
-const baseURL = import.meta.env.VITE_BASE_URL
+import api from "../config/api.config"
 
 export const getCategories = async () => {
     try {
-        const response = await axios.get(`${baseURL}category`)
+        const response = await api.get(`category`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -13,7 +11,7 @@ export const getCategories = async () => {
 
 export const getCategory = async (id) => {
     try {
-        const res = await axios.get(`${baseURL}category/view/${id}`)
+        const res = await api.get(`category/view/${id}`)
         return res.data
     } catch (error) {
         console.log(error)
@@ -23,7 +21,7 @@ export const getCategory = async (id) => {
 
 export const updateCategory = async ({ data, id }) => {
     try {
-        const res = await axios.put(`${baseURL}category/${id}`, data)
+        const res = await api.put(`category/${id}`, data)
         return res.data
     } catch (error) {
         return error
@@ -32,7 +30,7 @@ export const updateCategory = async ({ data, id }) => {
 
 export const createCategory = async (data) => {
     try {
-        const res = await axios.post(`${baseURL}category`, data)
+        const res = await api.post(`category`, data)
         return res.data
     } catch (error) {
         return error
@@ -41,7 +39,7 @@ export const createCategory = async (data) => {
 
 export const deleteCategory = async (id) => {
     try {
-        const res = await axios.delete(`${baseURL}category/${id}`)
+        const res = await api.delete(`category/${id}`)
         return res.data
     } catch (error) {
         return error

@@ -1,9 +1,8 @@
-import axios from "axios"
+import api from "../config/api.config";
 
-const baseURL = import.meta.env.VITE_BASE_URL
 export const createCourse = async (data) => {
     try {
-        const response = await axios.post(`${baseURL}course/create`, data);
+        const response = await api.post(`course/create`, data);
         const newCourse = response.data;
         return newCourse;
     } catch (error) {
@@ -13,7 +12,7 @@ export const createCourse = async (data) => {
 
 export const updateCourse = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}course/update/${id}`, data)
+        const res = await api.put(`course/update/${id}`, data)
         return res.data
     } catch (error) {
         console.log(error)
@@ -22,7 +21,7 @@ export const updateCourse = async ({ id, data }) => {
 
 export const getMyCourses = async (id) => {
     try {
-        const response = await axios.get(`${baseURL}course/list/${id}`);
+        const response = await api.get(`course/list/${id}`);
         const courses = response.data;
         return courses;
     } catch (error) {
@@ -32,7 +31,7 @@ export const getMyCourses = async (id) => {
 
 export const deleteCourse = async (id) => {
     try {
-        const res = await axios.delete(`${baseURL}course/delete/${id}`)
+        const res = await api.delete(`course/delete/${id}`)
         return res.data;
     } catch (error) {
         return error
@@ -41,7 +40,7 @@ export const deleteCourse = async (id) => {
 
 export const getCourse = async (id) => {
     try {
-        const res = await axios.get(`${baseURL}course/view/${id}`)
+        const res = await api.get(`course/view/${id}`)
         return res
     } catch (error) {
         return error;
@@ -50,7 +49,7 @@ export const getCourse = async (id) => {
 
 export const getCourses = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}course/all?page=${page}&limit=${limit}`)
+        const res = await api.get(`course/all?page=${page}&limit=${limit}`)
         return res
     } catch (error) {
         console.log(error)
@@ -59,7 +58,7 @@ export const getCourses = async ({ page, limit }) => {
 
 export const getWaitingCourses = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}course/no-accepted?page=${page}&limit=${limit}`)
+        const res = await api.get(`course/no-accepted?page=${page}&limit=${limit}`)
         return res
     } catch (error) {
         console.log(error)
@@ -68,7 +67,7 @@ export const getWaitingCourses = async ({ page, limit }) => {
 
 export const acceptCourse = async ({ data, id }) => {
     try {
-        const res = await axios.put(`${baseURL}course/accept/${id}`, data)
+        const res = await api.put(`course/accept/${id}`, data)
         return res.data
     } catch (error) {
         console.log(error)
@@ -77,7 +76,7 @@ export const acceptCourse = async ({ data, id }) => {
 
 export const searchCourse = async ({ page, limit, title }) => {
     try {
-        const res = await axios.get(`${baseURL}course/search-title?page=${page}&limit=${limit}&title=${title}`)
+        const res = await api.get(`course/search-title?page=${page}&limit=${limit}&title=${title}`)
         return res;
     } catch (error) {
         return error
