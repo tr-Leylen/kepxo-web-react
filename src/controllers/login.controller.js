@@ -1,8 +1,9 @@
-import api from "../config/api.config";
+import axios from "axios"
 
+const baseURL = import.meta.env.VITE_BASE_URL
 export const login = async (data) => {
     try {
-        const response = await api.post(`auth/login`, data)
+        const response = await axios.post(`${baseURL}auth/login`, data)
         if (response.data.role === "user") throw new Error("User don't login this app")
         return response.data;
     } catch (error) {
@@ -12,7 +13,7 @@ export const login = async (data) => {
 
 export const registerUser = async (data) => {
     try {
-        const res = await api.post(`auth/register`, data)
+        const res = await axios.post(`${baseURL}auth/register`, data)
         return res;
     } catch (error) {
         return error
@@ -21,7 +22,7 @@ export const registerUser = async (data) => {
 
 export const resetPassword = async (data) => {
     try {
-        const res = await api.post(`auth/reset-password`, data);
+        const res = await axios.post(`${baseURL}auth/reset-password`, data);
         return res;
     } catch (error) {
         return error;
@@ -30,7 +31,7 @@ export const resetPassword = async (data) => {
 
 export const forgotPassword = async (data) => {
     try {
-        const res = await api.post(`auth/forgot-password`, data)
+        const res = await axios.post(`${baseURL}auth/forgot-password`, data)
         return res;
     } catch (error) {
         return error;
