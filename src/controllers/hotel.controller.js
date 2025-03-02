@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const baseURL = import.meta.env.VITE_BASE_URL
+import api from "../config/api.config";
 
 export const createHotel = async (data) => {
     try {
-        const res = await axios.post(`${baseURL}hotel/create`, data)
+        const res = await api.post(`hotel/create`, data)
         return res;
     } catch (error) {
         return error;
@@ -13,7 +11,7 @@ export const createHotel = async (data) => {
 
 export const updateHotel = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}hotel/update/${id}`, data);
+        const res = await api.put(`hotel/update/${id}`, data);
         return res;
     } catch (error) {
         return error;
@@ -22,7 +20,7 @@ export const updateHotel = async ({ id, data }) => {
 
 export const deleteHotel = async (id) => {
     try {
-        const res = await axios.delete(`${baseURL}hotel/delete/${id}`);
+        const res = await api.delete(`hotel/delete/${id}`);
         return res;
     } catch (error) {
         return error;
@@ -31,7 +29,7 @@ export const deleteHotel = async (id) => {
 
 export const getAllHotels = async () => {
     try {
-        const res = await axios.get(`${baseURL}hotel/all-hotels`);
+        const res = await api.get(`hotel/all-hotels`);
         return res;
     } catch (error) {
         return error
@@ -40,7 +38,7 @@ export const getAllHotels = async () => {
 
 export const getHotel = async (id) => {
     try {
-        const res = await axios.get(`${baseURL}hotel/view/${id}`)
+        const res = await api.get(`hotel/view/${id}`)
         return res;
     } catch (error) {
         return error;
@@ -49,7 +47,7 @@ export const getHotel = async (id) => {
 
 export const getHotelsPaged = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}hotel/all?page=${page}&limit=${limit}`)
+        const res = await api.get(`hotel/all?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error;
@@ -58,7 +56,7 @@ export const getHotelsPaged = async ({ page, limit }) => {
 
 export const addHotelImage = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}hotel/add-image/${id}`, data)
+        const res = await api.put(`hotel/add-image/${id}`, data)
         return res;
     } catch (error) {
         return error;
@@ -67,7 +65,7 @@ export const addHotelImage = async ({ id, data }) => {
 
 export const removeHotelImage = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}hotel/remove-image/${id}`, data)
+        const res = await api.put(`hotel/remove-image/${id}`, data)
         return res;
     } catch (error) {
         return error;

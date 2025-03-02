@@ -1,10 +1,8 @@
-import axios from "axios"
-
-const baseURL = import.meta.env.VITE_BASE_URL
+import api from "../config/api.config";
 
 export const createGift = async (data) => {
     try {
-        const res = await axios.post(`${baseURL}gift/create`, data)
+        const res = await api.post(`gift/create`, data)
         return res;
     } catch (error) {
         return error
@@ -13,7 +11,7 @@ export const createGift = async (data) => {
 
 export const updateGift = async ({ id, data }) => {
     try {
-        const res = await axios.put(`${baseURL}gift/${id}`, data)
+        const res = await api.put(`gift/${id}`, data)
         return res;
     } catch (error) {
         return error
@@ -22,7 +20,7 @@ export const updateGift = async ({ id, data }) => {
 
 export const getAllGifts = async ({ page, limit }) => {
     try {
-        const res = await axios.get(`${baseURL}gift/all?page=${page}&limit=${limit}`)
+        const res = await api.get(`gift/all?page=${page}&limit=${limit}`)
         return res;
     } catch (error) {
         return error
@@ -31,7 +29,7 @@ export const getAllGifts = async ({ page, limit }) => {
 
 export const getOneGift = async (id) => {
     try {
-        const res = await axios.get(`${baseURL}gift/view/${id}`)
+        const res = await api.get(`gift/view/${id}`)
         return res;
     } catch (error) {
         return error
@@ -40,7 +38,7 @@ export const getOneGift = async (id) => {
 
 export const deleteGift = async (id) => {
     try {
-        const res = await axios.delete(`${baseURL}gift/${id}`);
+        const res = await api.delete(`gift/${id}`);
         return res;
     } catch (error) {
         return error;

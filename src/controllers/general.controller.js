@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const baseURL = import.meta.env.VITE_BASE_URL
+import api from "../config/api.config";
 
 export const uploadImage = async (img) => {
     try {
-        const res = await axios.post(`${baseURL}photo`, img)
+        const res = await api.post(`photo`, img)
         return res;
     } catch (error) {
         return error;
