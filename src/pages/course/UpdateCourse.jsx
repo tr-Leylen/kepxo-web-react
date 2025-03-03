@@ -98,7 +98,7 @@ const UpdateCourse = ({ closeModal, getNewData }) => {
                         {...register("description")}
                         placeholder='Açıklama'
                         id='description'
-                        className='border rounded-sm outline-none p-2 resize-none'
+                        className='border rounded-sm outline-none p-2 resize-none h-[150px]'
                     />
                 </div>
                 <div className='flex flex-col gap-2 px-10'>

@@ -5,17 +5,26 @@ import HotelItem from './HotelItem'
 import { getHotelsPaged } from '../../controllers/hotel.controller'
 import CreateHotel from './CreateHotel'
 import Pagination from '../../components/Pagination'
+import GiftSkeleton from '../../components/UI/GiftSkeleton'
 
 const Hotels = () => {
     const [data, setData] = useState([])
     const [activePage, setActivePage] = useState(0)
     const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const getData = async () => {
-        const res = await getHotelsPaged({ page: activePage, limit: 10 })
-        setData(res.data?.data)
-        setTotalPages(res.data?.totalPages)
+        try {
+            setLoading(true)
+            const res = await getHotelsPaged({ page: activePage, limit: 10 })
+            setData(res.data?.data)
+            setTotalPages(res.data?.totalPages)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -34,7 +43,7 @@ const Hotels = () => {
                         Yeni Hotel
                     </button>
                     <ul className='grid grid-cols-3 gap-4'>
-                        {data.map(hotel => (
+                        {loading ? Array.from({ length: 6 }, () => <GiftSkeleton />) : data.map(hotel => (
                             <HotelItem key={hotel._id} hotel={hotel} getData={getData} />
                         ))}
                     </ul>

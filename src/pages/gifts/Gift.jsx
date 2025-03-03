@@ -7,17 +7,26 @@ import { GrFormNextLink } from "react-icons/gr";
 import CreateGift from './CreateGift'
 import GiftItem from './GiftItem'
 import Pagination from '../../components/Pagination'
+import GiftSkeleton from '../../components/UI/GiftSkeleton'
 
 const Gift = () => {
     const [data, setData] = useState([])
     const [createModal, setCreateModal] = useState(false)
     const [totalPages, setTotalPages] = useState(1)
     const [activePage, setActivePage] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const getGiftsData = async () => {
-        const res = await getAllGifts({ page: activePage, limit: 10 })
-        setData(res.data?.data)
-        setTotalPages(res.data?.totalPages)
+        try {
+            setLoading(true)
+            const res = await getAllGifts({ page: activePage, limit: 10 })
+            setData(res.data?.data)
+            setTotalPages(res.data?.totalPages)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -43,7 +52,7 @@ const Gift = () => {
                 <ul
                     className='grid grid-cols-3 gap-5'
                 >
-                    {data.map(item =>
+                    {loading ? Array.from({ length: 6 }, () => <GiftSkeleton />) : data.map(item =>
                         <GiftItem gift={item} key={item._id} getData={getGiftsData} />
                     )}
                 </ul>

@@ -8,7 +8,7 @@ const DeleteAlert = ({ deleteOperation, setModal, getData }) => {
         const res = await deleteOperation()
         if (!res?.response) {
             toast.success('Başarıyla tamamlandı')
-            getData()
+            getData ? getData() : null
             setModal(false)
         } else {
             toast.error(res?.response?.data || 'Bir hata oluşdu')
