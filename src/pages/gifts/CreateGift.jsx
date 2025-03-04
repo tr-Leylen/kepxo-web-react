@@ -83,6 +83,7 @@ const CreateGift = ({ modalIsOpen, getData }) => {
                         type="number"
                         className='outline-none border border-main-color rounded p-2'
                         placeholder='Gerekli Puan'
+                        onWheel={(e) => e.currentTarget.blur()}
                         {...register("score", { required: "Puan boş olamaz", valueAsNumber: true })}
                     />
                     {errors.score &&

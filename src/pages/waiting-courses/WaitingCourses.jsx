@@ -34,9 +34,10 @@ const WaitingCourses = () => {
         <CurrentPage>
             <PageHeader title='Onay Bekleyen Kurslar' />
             <ul className='p-5 mt-14 gap-3 flex flex-col'>
-                {loading ? Array.from({ length: 4 }, () => <CourseSkeleton />) : data.map(course => (
-                    <CourseListItem key={course?._id} course={course} />
-                ))}
+                {loading ? Array.from({ length: 4 }, () => <CourseSkeleton />) :
+                    data.map(course => (
+                        <CourseListItem key={course?._id} course={course} />
+                    ))}
             </ul>
             {data.length > 0 && <Pagination
                 activePage={activePage}
