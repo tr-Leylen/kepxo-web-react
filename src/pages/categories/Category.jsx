@@ -4,16 +4,25 @@ import PageHeader from '../../components/PageHeader'
 import { getCategories } from '../../controllers/category.controller'
 import UpdateCategory from './UpdateCategory'
 import CreateCategory from './CreateCategory'
+import CategorySkeleton from '../../components/UI/CategorySkeleton'
 
 const Category = () => {
     const [data, setData] = useState([])
     const [createModal, setCreateModal] = useState(false)
     const [updateModal, setUpdateModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState()
 
     const getData = async () => {
-        const categories = await getCategories()
-        setData(categories)
+        try {
+            setLoading(true)
+            const categories = await getCategories()
+            setData(categories)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const clickCategory = (e) => {
@@ -34,8 +43,8 @@ const Category = () => {
                 >
                     Yeni Kategori
                 </button>
-                <ul className='grid grid-cols-3 gap-5'>
-                    {data.map(item => (
+                <ul className='grid grid-cols-4 gap-5'>
+                    {loading ? Array.from({ length: 12 }, () => <CategorySkeleton />) : data.map(item => (
                         <li
                             onClick={clickCategory}
                             id={item?._id}

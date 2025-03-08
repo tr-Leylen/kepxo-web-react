@@ -8,27 +8,43 @@ import CreateUser from './CreateUser.jsx';
 import UserItem from './UserItem.jsx';
 import Pagination from '../../components/Pagination.jsx';
 import { useForm } from 'react-hook-form';
+import UserSkeleton from '../../components/UI/UserSkeleton.jsx';
 
 const Teachers = () => {
     const [data, setData] = useState([])
     const [activePage, setActivePage] = useState(0)
     const [totalPages, setTotalPages] = useState(1)
     const [createModal, setCreateModal] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const getData = async () => {
-        const teachers = await getTeachersPaged({ page: activePage, limit: 20 })
-        setData(teachers.data?.data)
-        setTotalPages(teachers.data?.totalPages)
+        try {
+            setLoading(true)
+            const teachers = await getTeachersPaged({ page: activePage, limit: 20 })
+            setData(teachers.data?.data)
+            setTotalPages(teachers.data?.totalPages)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const { register, handleSubmit } = useForm()
 
     const search = async (data) => {
-        const username = data.username
-        const users = await searchTeacher({ page: activePage, limit: 10, username })
-        if (users.status === 200) {
-            setData(users.data.data)
-            setTotalPages(users.data.totalPages)
+        try {
+            setLoading(true)
+            const username = data.username
+            const users = await searchTeacher({ page: activePage, limit: 10, username })
+            if (users.status === 200) {
+                setData(users.data.data)
+                setTotalPages(users.data.totalPages)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -70,7 +86,7 @@ const Teachers = () => {
                     Yeni Öğretmen
                 </button>
                 <ul className='grid grid-cols-3 gap-3'>
-                    {data.map(user => (
+                    {loading ? Array.from({ length: 6 }, () => <UserSkeleton />) : data.map(user => (
                         <UserItem user={user} key={user._id} getUserData={getData} />
                     ))}
 

@@ -9,21 +9,29 @@ import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
 import { useForm } from 'react-hook-form';
 import { IoIosClose } from 'react-icons/io';
-
+import CourseSkeleton from '../../components/UI/CourseSkeleton';
 
 const Courses = () => {
     const [data, setData] = useState([])
     const [totalPages, setTotalPages] = useState(1)
     const [activePage, setActivePage] = useState(0)
     const [createModal, setCreateModal] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const { register, handleSubmit } = useForm()
 
     const getCoursesData = async () => {
-        const courses = await getCourses({ page: activePage, limit: 10 })
-        if (courses?.status === 200) {
-            setData(courses.data.data)
-            setTotalPages(courses.data.totalPages)
+        try {
+            setLoading(true)
+            const courses = await getCourses({ page: activePage, limit: 10 })
+            if (courses?.status === 200) {
+                setData(courses.data.data)
+                setTotalPages(courses.data.totalPages)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -71,8 +79,8 @@ const Courses = () => {
                 >
                     Yeni Eğitim
                 </button>
-                <ul className='list-none flex flex-col gap-10 mt-14'>
-                    {data.map(course => (
+                <ul className='list-none flex flex-col gap-5 mt-14'>
+                    {loading ? Array.from({ length: 3 }, () => <CourseSkeleton />) : data.map(course => (
                         <CourseListItem course={course} key={course?._id} />
                     ))}
                 </ul>

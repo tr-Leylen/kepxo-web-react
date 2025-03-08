@@ -3,12 +3,12 @@ import Modal from './Modal'
 import { deleteCourse } from '../controllers/course.controller'
 import toast from 'react-hot-toast'
 
-const DeleteAlert = ({ deleteOperation, setModal, getData }) => {
+const DeleteAlert = ({ deleteOperation, setModal, getData, text = '' }) => {
     const deleteFunc = async () => {
         const res = await deleteOperation()
         if (!res?.response) {
             toast.success('Başarıyla tamamlandı')
-            getData()
+            getData ? getData() : null
             setModal(false)
         } else {
             toast.error(res?.response?.data || 'Bir hata oluşdu')
@@ -17,7 +17,7 @@ const DeleteAlert = ({ deleteOperation, setModal, getData }) => {
     return (
         <Modal>
             <div className='w-1/3 bg-white p-5 rounded'>
-                <p className='font-semibold text-xl mb-10'>Silmek istediğinizden emin misiniz?</p>
+                <p className='font-semibold text-xl mb-10'>{text || 'Silmek istediğinizden emin misiniz?'}</p>
                 <div className='flex gap-5 [&>button]:px-3 py-1'>
                     <button
                         onClick={() => setModal(false)}

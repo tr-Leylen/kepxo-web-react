@@ -9,14 +9,23 @@ import UpdateConference from './UpdateConference'
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineEditNote } from "react-icons/md";
 import DeleteAlert from '../../components/DeleteAlert'
+import ConferenceSkeleton from '../../components/UI/ConferenceSkeleton'
 
 const Conferences = () => {
     const [createModal, setCreateModal] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [data, setData] = useState([])
     const getData = async () => {
-        const conferenceData = await getConferences()
-        setData(conferenceData.data)
+        try {
+            setLoading(true)
+            const conferenceData = await getConferences()
+            setData(conferenceData.data)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
     useEffect(() => {
         getData()
@@ -36,7 +45,7 @@ const Conferences = () => {
                 <ul
                     className='grid grid-cols-3 gap-5'
                 >
-                    {data.map(item => (
+                    {loading ? Array.from({ length: 6 }, () => <ConferenceSkeleton />) : data.map(item => (
                         <ConferenceItem conference={item} key={item?._id} getData={getData} />
                     ))}
                 </ul>

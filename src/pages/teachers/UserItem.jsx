@@ -52,6 +52,7 @@ const UserItem = ({ user, getUserData }) => {
                 deleteOperation={() => deleteUser(user._id)}
                 getData={getUserData}
                 setModal={setDeleteModal}
+                text={!user?.enable && 'Açmak istediğinizden emin misiniz?'}
             />}
         </>
     )

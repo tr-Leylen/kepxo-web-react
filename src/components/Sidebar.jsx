@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { IoSchool } from "react-icons/io5";
 import { FaUserGroup, FaGift, FaHotel } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
@@ -90,10 +90,10 @@ const Sidebar = () => {
                 {
                     sidebarLinks.map((item, index) => (
                         currentUser?.role === item.role && <li key={index}>
-                            <Link to={item.path} className='flex items-center gap-2 px-5 py-3 transition-all duration-200 hover:bg-purple-100'>
+                            <NavLink to={item.path} className='flex items-center gap-2 px-5 py-3 transition-all duration-200 hover:bg-purple-100'>
                                 {item.icon}
                                 <span>{item.title}</span>
-                            </Link>
+                            </NavLink>
                         </li>
                     ))
                 }

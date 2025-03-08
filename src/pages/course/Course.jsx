@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CurrentPage from '../../components/CurrentPage';
 import PageHeader from '../../components/PageHeader';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { acceptCourse, deleteCourse, getCourse } from '../../controllers/course.controller';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { LuClock } from "react-icons/lu";
@@ -13,6 +13,7 @@ import AcceptCourse from './AcceptCourse';
 import toast from 'react-hot-toast';
 
 const Course = () => {
+    const navigate = useNavigate()
     const [course, setCourse] = useState({})
     const [updateModal, setUpdateModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
@@ -25,6 +26,16 @@ const Course = () => {
         if (course.status === 200) {
             setCourse(course.data)
         }else{
+            toast.error('Hata oldu')
+        }
+    }
+
+    const deleteCurrentData = async()=>{
+        try {
+            await deleteCourse(id)
+            navigate('/courses')
+        } catch (error) {
+            console.log(error)
             toast.error('Hata oldu')
         }
     }
@@ -93,7 +104,7 @@ const Course = () => {
                             onClick={() => setDeleteModal(!deleteModal)}
                             className='rounded w-24 h-10 flex justify-center items-center bg-red-500 text-white font-medium active:bg-red-600 uppercase text-sm'
                         >
-                            {course?.enable ? 'Sil' : 'Aç'}
+                            Sil
                         </button>
                         {currentUser.role === "admin" &&
                             <button
@@ -108,8 +119,7 @@ const Course = () => {
             {updateModal && <UpdateCourse closeModal={setUpdateModal} getNewData={getCourseData} />}
             {deleteModal && <DeleteAlert
                 setModal={setDeleteModal}
-                deleteOperation={() => deleteCourse(id)}
-                getData={getCourseData}
+                deleteOperation={deleteCurrentData}
             />}
             {(acceptModal && !course?.accepted) &&
                 <AcceptCourse

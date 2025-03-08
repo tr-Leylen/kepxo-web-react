@@ -6,15 +6,24 @@ import CreateCourse from './CreateCourse'
 import { getMyCourses } from '../../controllers/course.controller'
 import { useSelector } from 'react-redux'
 import CourseListItem from '../../components/CourseListItem'
+import CourseSkeleton from '../../components/UI/CourseSkeleton'
 
 const MyCourses = () => {
   const [modal, setModal] = useState(false)
   const [courseList, setCourseList] = useState([])
+  const [loading, setLoading] = useState(false)
   const { currentUser } = useSelector(state => state.user)
 
   const getCourses = async () => {
-    const courses = await getMyCourses(currentUser._id)
-    setCourseList(courses.data)
+    try {
+      setLoading(true)
+      const courses = await getMyCourses(currentUser._id)
+      setCourseList(courses.data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -32,7 +41,7 @@ const MyCourses = () => {
           Yeni Eğitim
         </button>
         <ul className='flex flex-col gap-5'>
-          {courseList.map(course => (
+          {loading ? Array.from({ length: 4 }, () => <CourseSkeleton />) : courseList.map(course => (
             <CourseListItem course={course} key={course._id} />
           ))}
         </ul>

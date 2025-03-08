@@ -4,17 +4,26 @@ import PageHeader from '../../components/PageHeader'
 import { getWaitingCourses } from '../../controllers/course.controller'
 import CourseListItem from '../../components/CourseListItem'
 import Pagination from '../../components/Pagination'
+import CourseSkeleton from '../../components/UI/CourseSkeleton'
 
 const WaitingCourses = () => {
     const [data, setData] = useState([])
     const [activePage, setActivePage] = useState(0)
     const [totalPages, setTotalPages] = useState(1)
+    const [loading, setLoading] = useState(false)
 
     const getWaitingCourseData = async () => {
-        const courses = await getWaitingCourses({ page: activePage, limit: 10 })
-        if (courses.status === 200) {
-            setData(courses.data.data)
-            setTotalPages(courses.data.totalPages)
+        try {
+            setLoading(true)
+            const courses = await getWaitingCourses({ page: activePage, limit: 10 })
+            if (courses.status === 200) {
+                setData(courses.data.data)
+                setTotalPages(courses.data.totalPages)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -25,9 +34,10 @@ const WaitingCourses = () => {
         <CurrentPage>
             <PageHeader title='Onay Bekleyen Kurslar' />
             <ul className='p-5 mt-14 gap-3 flex flex-col'>
-                {data.map(course => (
-                    <CourseListItem key={course?._id} course={course} />
-                ))}
+                {loading ? Array.from({ length: 4 }, () => <CourseSkeleton />) :
+                    data.map(course => (
+                        <CourseListItem key={course?._id} course={course} />
+                    ))}
             </ul>
             {data.length > 0 && <Pagination
                 activePage={activePage}

@@ -19,3 +19,12 @@
 aside ::-webkit-scrollbar{
   width: 4px;
 }
+
+a.active{
+  background-color: #66328E;
+  color: white;
+}
+
+a.active:hover{
+  background-color: #66328E;
+}
