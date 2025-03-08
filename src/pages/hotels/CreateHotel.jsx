@@ -21,24 +21,26 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
     const changeStar = value => setHotelStar(value)
 
     const submitForm = async (data) => {
-        data.star = hotelStar
-        data.images = []
-        if (image.length > 0) {
-            for (let i = 0; i < image.length; i++) {
-                const formData = new FormData()
-                formData.append('file', image[i])
-                const imgURL = await uploadImage(formData)
-                data.images = [...data.images, imgURL.data?.url]
+        try {
+            data.star = hotelStar
+            data.images = []
+            if (image.length > 0) {
+                for (let i = 0; i < image.length; i++) {
+                    const formData = new FormData()
+                    formData.append('file', image[i])
+                    const imgURL = await uploadImage(formData)
+                    data.images = [...data.images, imgURL.data?.url]
+                }
             }
-        }
-        data.star = hotelStar
-        const res = await createHotel(data)
-        if (res.status === 201) {
-            getData()
-            toast.success('Hotel created')
-            modalIsOpen(false)
-        } else {
-            toast.error(res.response?.data || 'Hata oldu')
+            data.star = hotelStar
+            const res = await createHotel(data)
+            if (res.status === 201) {
+                getData()
+                toast.success('Hotel created')
+                modalIsOpen(false)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -148,6 +150,17 @@ const CreateHotel = ({ modalIsOpen, getData }) => {
                             ))
                         }
                     </div>
+                </InputDiv>
+                <InputDiv>
+                    <label htmlFor="score">Puan</label>
+                    <input
+                        type='number'
+                        className='px-2 py-1 outline-none border border-main-color rounded'
+                        id='score'
+                        onWheel={(e) => e.currentTarget.blur()}
+                        {...register("score", { required: "Puan boş olamaz", valueAsNumber: true, min: {value:0, message:'Puan minimum 0 olabilir'} })}
+                    />
+                    {errors.score && <InputError message={errors.score.message} />}
                 </InputDiv>
                 <InputDiv>
                     <label htmlFor="desc">Açıklama</label>

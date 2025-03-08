@@ -20,7 +20,8 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
             avatar: hotel?.avatar,
             description: hotel.description,
             address: hotel.address,
-            images: hotel.images
+            images: hotel.images,
+            score: hotel.score
         }
     })
     const [hotelStar, setHotelStar] = useState(hotel?.star)
@@ -28,15 +29,15 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
     const changeStar = value => setHotelStar(value)
 
     const submitForm = async (data) => {
-        data.images = images
-        data.star = hotelStar
-        const res = await updateHotel({ data, id: hotel._id })
-        if (res.status === 200) {
+        try {
+            data.images = images
+            data.star = hotelStar
+            const res = await updateHotel({ data, id: hotel._id })
             getData()
             toast.success('Hotel created')
             modalIsOpen(false)
-        } else {
-            toast.error(res.response?.data || 'Hata oldu')
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -142,6 +143,17 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
                         accept='image/*'
                         onChange={addImage}
                     />
+                </InputDiv>
+                <InputDiv>
+                    <label htmlFor="score">Puan</label>
+                    <input
+                        type='number'
+                        className='px-2 py-1 outline-none border border-main-color rounded'
+                        id='score'
+                        onWheel={(e) => e.currentTarget.blur()}
+                        {...register("score", { required: "Puan boş olamaz", valueAsNumber: true, min: { value: 0, message: 'Puan minimum 0 olabilir' } })}
+                    />
+                    {errors.score && <InputError message={errors.score.message} />}
                 </InputDiv>
                 <InputDiv>
                     <label htmlFor="desc">Açıklama</label>
