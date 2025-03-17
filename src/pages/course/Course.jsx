@@ -33,7 +33,7 @@ const Course = () => {
     const deleteCurrentData = async()=>{
         try {
             await deleteCourse(id)
-            navigate('/courses')
+            navigate(-1)
         } catch (error) {
             console.log(error)
             toast.error('Hata oldu')
