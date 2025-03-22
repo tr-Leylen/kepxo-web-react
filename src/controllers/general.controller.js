@@ -5,6 +5,6 @@ export const uploadImage = async (img) => {
         const res = await api.post(`photo`, img)
         return res;
     } catch (error) {
-        return error;
+        console.log(error)
     }
 }

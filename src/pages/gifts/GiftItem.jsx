@@ -24,7 +24,7 @@ const GiftItem = ({ gift, getData }) => {
             <li className='rounded flex items-center justify-between border border-main-color overflow-hidden flex-col'>
                 <div className='h-[200px] flex items-center justify-center w-full border-b'>
                     {gift.image ?
-                        <img src={gift.image} alt='image' className='object-cover block h-full w-full' /> :
+                        <img src={`${import.meta.env.VITE_IMAGE_URL}${gift.image}`} alt='image' className='object-cover block h-full w-full' /> :
                         <FaRegImage className='text-5xl' />
                     }
                 </div>

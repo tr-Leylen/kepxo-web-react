@@ -29,7 +29,7 @@ const UserItem = ({ user, getUserData }) => {
                 <div className='flex justify-center w-1/2 aspect-square items-center mx-auto rounded-full overflow-hidden bg-main-color'>
                     {
                         user?.avatar ?
-                            <img src={user?.avatar} alt="img" className='object-cover w-full' /> :
+                            <img src={`${import.meta.env.VITE_IMAGE_URL}${user?.avatar}`} alt="img" className='object-cover w-full' /> :
                             <FaUser className='text-white text-5xl' />
                     }
                 </div>

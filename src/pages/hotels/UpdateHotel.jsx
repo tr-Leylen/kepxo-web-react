@@ -43,13 +43,19 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
 
     const addImage = async (e) => {
         const file = e.target.files[0]
+        console.log(file)
         if (!file) return;
         const formData = new FormData()
         formData.append('file', file)
-        const photo = await uploadImage(formData)
-        if (!photo) return;
-        const data = await addHotelImage({ id: hotel._id, data: { image: photo.data?.url } })
-        setImages(data.data)
+        try {
+            const photo = await uploadImage(formData)
+            if (!photo.data?.url) return;
+            const data = await addHotelImage({ id: hotel._id, data: { image: photo.data?.url } })
+            setImages(data.data)
+        } catch (error) {
+            console.log(error, 'error message')
+        }
+
     }
 
     const removeImage = async (image) => {
@@ -126,7 +132,7 @@ const UpdateHotel = ({ modalIsOpen, getData, hotel }) => {
                                 >
                                     <IoIosCloseCircleOutline />
                                 </button>
-                                <img className='object-cover w-full h-full' src={item} alt='hotel-image' />
+                                <img className='object-cover w-full h-full' src={`${import.meta.env.VITE_IMAGE_URL}${item}`} alt='hotel-image' />
                             </div>
                         ))}
                         <label htmlFor='avatar'

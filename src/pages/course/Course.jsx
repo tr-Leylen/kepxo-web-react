@@ -62,7 +62,7 @@ const Course = () => {
         <CurrentPage>
             <PageHeader title={course?.title} />
             <div className='p-5 mt-14'>
-                <img src={course?.avatar} alt="course img" className='max-w-[600px] block max-h-[300px] mb-5 object-cover' />
+                <img src={`${import.meta.env.VITE_IMAGE_URL}${course?.avatar}`} alt="course img" className='max-w-[600px] block max-h-[300px] mb-5 object-cover' />
                 {course?.accepted ?
                     <h2 className='flex gap-2 items-center font-semibold text-xl text-green-600 my-5'>
                         <FaRegCheckCircle /> Onaylandı

@@ -7,7 +7,7 @@ const CourseListItem = ({ course }) => {
         <li>
             <Link to={`/course/${course?._id}`} className='flex rounded-md border border-main-color overflow-hidden'>
                 <div className='w-[250px] h-[150px]'>
-                    <img src={course?.avatar} alt="courseImg" className='w-full h-full block object-cover' />
+                    <img src={`${import.meta.env.VITE_IMAGE_URL}${course?.avatar}`} alt="courseImg" className='w-full h-full block object-cover' />
                 </div>
                 <div className='flex flex-col gap-1 text-main-color px-5 justify-center w-full'>
                     <h2 className='font-bold text-xl flex gap-4'>

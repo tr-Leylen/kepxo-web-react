@@ -123,7 +123,7 @@ const UpdateGift = ({ gift, modalIsOpen, getData }) => {
                     <label htmlFor="img">Hediye Fotosu</label>
                     {giftImg ?
                         <img src={giftImg} alt='img' className='w-full h-[200px] object-cover' /> :
-                        <img src={gift?.image} alt='img' className='w-full h-[200px] object-cover' />
+                        <img src={`${import.meta.env.VITE_IMAGE_URL}${gift?.image}`} alt='img' className='w-full h-[200px] object-cover' />
                     }
                     <input
                         type="file"
