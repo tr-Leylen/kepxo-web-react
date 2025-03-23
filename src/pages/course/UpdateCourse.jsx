@@ -117,7 +117,7 @@ const UpdateCourse = ({ closeModal, getNewData }) => {
                         {errors.avatar?.message}
                     </span>}
                     <div className='w-full h-60'>
-                        {<img src={newImage ? URL.createObjectURL(newImage) : courseData.avatar} className='h-full w-full object-contain' />}
+                        {<img src={newImage ? URL.createObjectURL(newImage) : `${import.meta.env.VITE_IMAGE_URL}${courseData.avatar}`} className='h-full w-full object-contain' />}
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 px-10'>
