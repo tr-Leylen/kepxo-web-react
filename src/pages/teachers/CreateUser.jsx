@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdError } from 'react-icons/md'
 import { registerUser } from '../../controllers/login.controller'
 import toast from 'react-hot-toast'
 import { IoCloseOutline } from "react-icons/io5";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const CreateUser = ({ getData, modalIsOpen, userType = 'user' }) => {
+    const [showPass, setShowPass] = useState(false)
     const { formState: { errors }, handleSubmit, register } = useForm()
     const submit = async (data) => {
         data.role = userType
@@ -46,17 +48,26 @@ const CreateUser = ({ getData, modalIsOpen, userType = 'user' }) => {
             </div>
             <div className='flex flex-col gap-2'>
                 <label htmlFor="password">Parola</label>
-                <input
-                    type="text"
-                    id='password'
-                    placeholder='Parola'
-                    className='border rounded px-3 py-2 outline-none border-main-color text-sm'
-                    {...register("password", {
-                        required: "Bu alan boş bırakılamaz", minLength: {
-                            value: 6, message: "Minimum uzunluk:6"
-                        }
-                    })}
-                />
+                <div className='relative'>
+                    <input
+                        type={showPass ? 'text':'password'}
+                        id='password'
+                        placeholder='Parola'
+                        className='border rounded px-3 py-2 outline-none border-main-color text-sm w-full pr-10'
+                        {...register("password", {
+                            required: "Bu alan boş bırakılamaz", minLength: {
+                                value: 6, message: "Minimum uzunluk:6"
+                            }
+                        })}
+                    />
+                    <button
+                        type='button'
+                        className='absolute right-1 h-full rounded-full top-0 aspect-square flex items-center justify-center'
+                        onClick={() => setShowPass(prev => !prev)}
+                    >
+                        {showPass ? <FiEyeOff /> : <FiEye />}
+                    </button>
+                </div>
                 {errors.password &&
                     <span className='text-red-700 text-xs flex items-center gap-2 font-semibold'>
                         <MdError />

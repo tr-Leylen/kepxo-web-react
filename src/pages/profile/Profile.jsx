@@ -104,7 +104,7 @@ const Profile = () => {
                 </form>
                 {currentUser?.avatar && <div className='border px-5 py-3 rounded-sm h-fit'>
                     <h2 className='mb-2'>Profil fotoğrafı</h2>
-                    <img src={currentUser?.avatar} alt="user image" className='w-full h-full object-contain' />
+                    <img src={`${import.meta.env.VITE_IMAGE_URL}${currentUser?.avatar}`} alt="user image" className='w-full h-full object-contain' />
                 </div>}
             </div>
         </CurrentPage>
