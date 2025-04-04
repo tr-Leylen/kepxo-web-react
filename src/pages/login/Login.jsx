@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/kepxo-logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -6,8 +6,10 @@ import { login } from '../../controllers/login.controller'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../redux/userSlice'
 import toast from 'react-hot-toast'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 const Login = () => {
+    const [showPass, setShowPass] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -52,18 +54,27 @@ const Login = () => {
                     <label htmlFor="password" className='font-semibold'>
                         Şifre
                     </label>
-                    <input
-                        {...register("password", {
-                            required: "Bu alan boş bırakılamaz",
-                            minLength: {
-                                value: 6,
-                                message: "Minimum 6 characters"
-                            }
-                        })}
-                        type="password"
-                        id='password'
-                        className='outline-none border border-main-color rounded-md px-3 py-2'
-                    />
+                    <div className='relative'>
+                        <input
+                            {...register("password", {
+                                required: "Bu alan boş bırakılamaz",
+                                minLength: {
+                                    value: 6,
+                                    message: "Minimum 6 characters"
+                                }
+                            })}
+                            type={showPass ? 'text' : 'password'}
+                            id='password'
+                            className='outline-none border border-main-color rounded-md px-3 py-2 w-full pr-10'
+                        />
+                        <button
+                            type='button'
+                            className='absolute right-1 h-full rounded-full top-0 aspect-square flex items-center justify-center'
+                            onClick={() => setShowPass(prev => !prev)}
+                        >
+                            {showPass ? <FiEyeOff /> : <FiEye />}
+                        </button>
+                    </div>
                     <span className='text-xs text-red-600'>
                         {errors.password?.message}
                     </span>
